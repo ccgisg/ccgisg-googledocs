@@ -296,6 +296,13 @@
             display: flex;
             gap: 5px;
         }
+        
+        .truncate {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 400px;
+        }
 
         /* Responsive Düzen */
         @media (max-width: 768px) {
@@ -340,6 +347,10 @@
                 margin-top: 10px;
                 width: 100%;
                 justify-content: flex-end;
+            }
+            
+            .truncate {
+                max-width: 200px;
             }
         }
     </style>
@@ -537,6 +548,24 @@
         </div>
     </div>
 
+    <!-- Dosya Listesi Modalı -->
+    <div class="modal fade" id="fileListModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Yüklenen Dosyalar - <span id="fileListEmployeeName"></span></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="fileListContent" class="list-group"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Doktor Bilgileri Modalı -->
     <div class="modal fade" id="doctorInfoModal" tabindex="-1">
         <div class="modal-dialog">
@@ -607,7 +636,7 @@
         class Database {
             constructor() {
                 this.dbName = 'isyeriHekimligiDB';
-                this.version = 10; // Versiyonu artırdık
+                this.version = 11; // Versiyonu artırdık
                 this.db = null;
             }
 
@@ -1104,6 +1133,7 @@
                         <div class="employee-actions">
                             <button class="btn btn-sm btn-primary ek2-btn">EK-2</button>
                             <button class="btn btn-sm btn-secondary upload-btn">EK-2 Yükle</button>
+                            <button class="btn btn-sm btn-info show-files-btn">EK-2 Göster</button>
                             <button class="btn btn-sm btn-info edit-employee">Düzenle</button>
                             <button class="btn btn-sm btn-danger delete-employee">Sil</button>
                         </div>
@@ -1119,6 +1149,11 @@
                 const uploadBtn = tr.querySelector('.upload-btn');
                 uploadBtn.addEventListener('click', () => {
                     showFileUploadModal(index);
+                });
+                
+                const showFilesBtn = tr.querySelector('.show-files-btn');
+                showFilesBtn.addEventListener('click', () => {
+                    showFileListModal(index);
                 });
                 
                 const editBtn = tr.querySelector('.edit-employee');
@@ -1168,7 +1203,7 @@
             employeeModal.show();
         }
 
-        // EK-2 Formu (GÜNCELLENMİŞ VE TAMAMLANMIŞ)
+        // EK-2 Formu
         async function showEk2Modal(employeeIndex) {
             const employee = appState.currentEmployees[employeeIndex];
             if (!employee) {
@@ -1723,8 +1758,8 @@
             // Muayene tarihi değiştiğinde sonraki tarihi güncelle
             document.getElementById('ek2ExamDate').addEventListener('change', function() {
                 const examDate = new Date(this.value);
-                const nextExamDate = new Date(examDate);
-                nextExamDate.setFullYear(nextExamDate.getFullYear() + 5);
+                const nextExamDate = new Date();
+                nextExamDate.setFullYear(examDate.getFullYear() + 5);
                 document.getElementById('ek2NextExamDate').value = nextExamDate.toISOString().split('T')[0];
             });
             
@@ -1807,6 +1842,89 @@
             fileUploadModal.show();
         }
 
+        // Dosya Listesi Modalı
+        async function showFileListModal(employeeIndex) {
+            const employee = appState.currentEmployees[employeeIndex];
+            if (!employee) {
+                console.error('Çalışan bulunamadı');
+                return;
+            }
+            
+            document.getElementById('fileListEmployeeName').textContent = employee.name;
+            const fileListContent = document.getElementById('fileListContent');
+            fileListContent.innerHTML = '<div class="text-center py-3"><div class="spinner-border" role="status"><span class="visually-hidden">Yükleniyor...</span></div></div>';
+
+            try {
+                const files = await appState.db.getFilesByEmployee(employee.id);
+                fileListContent.innerHTML = '';
+
+                if (files.length === 0) {
+                    fileListContent.innerHTML = '<div class="alert alert-info text-center">Henüz dosya yüklenmemiş</div>';
+                } else {
+                    files.forEach(file => {
+                        const uploadDate = new Date(file.uploadedAt);
+                        const formattedDate = `${uploadDate.getDate().toString().padStart(2, '0')}/${(uploadDate.getMonth()+1).toString().padStart(2, '0')}/${uploadDate.getFullYear()} ${uploadDate.getHours().toString().padStart(2, '0')}:${uploadDate.getMinutes().toString().padStart(2, '0')}`;
+                        
+                        const listItem = document.createElement('div');
+                        listItem.className = 'list-group-item';
+                        listItem.innerHTML = `
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="truncate">
+                                    <strong class="d-block">${file.fileName}</strong>
+                                    <small class="text-muted">${formattedDate}</small>
+                                </div>
+                                <div class="btn-group">
+                                    <button class="btn btn-sm btn-outline-primary download-file-btn" data-id="${file.id}">
+                                        <i class="fas fa-download"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-danger delete-file-btn" data-id="${file.id}">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        `;
+                        fileListContent.appendChild(listItem);
+
+                        // Event listeners for buttons
+                        listItem.querySelector('.download-file-btn').addEventListener('click', async (e) => {
+                            const fileId = e.target.closest('button').getAttribute('data-id');
+                            const fileRecord = files.find(f => f.id === fileId);
+                            if (fileRecord) {
+                                const blob = new Blob([fileRecord.data], { type: fileRecord.fileType });
+                                const url = URL.createObjectURL(blob);
+                                const a = document.createElement('a');
+                                a.href = url;
+                                a.download = fileRecord.fileName;
+                                document.body.appendChild(a);
+                                a.click();
+                                document.body.removeChild(a);
+                                URL.revokeObjectURL(url);
+                            }
+                        });
+
+                        listItem.querySelector('.delete-file-btn').addEventListener('click', async (e) => {
+                            const fileId = e.target.closest('button').getAttribute('data-id');
+                            if (confirm('Bu dosyayı silmek istediğinize emin misiniz?')) {
+                                try {
+                                    await appState.db.deleteFile(fileId);
+                                    listItem.remove(); // Remove from UI immediately
+                                } catch (error) {
+                                    console.error('Dosya silme hatası:', error);
+                                    alert('Dosya silinirken hata oluştu');
+                                }
+                            }
+                        });
+                    });
+                }
+            } catch (error) {
+                console.error('Dosyalar yüklenirken hata:', error);
+                fileListContent.innerHTML = '<div class="alert alert-danger">Dosyalar yüklenirken hata oluştu</div>';
+            }
+
+            const fileListModal = new bootstrap.Modal(document.getElementById('fileListModal'));
+            fileListModal.show();
+        }
+
         // Doktor Bilgileri İşlemleri
         function initDoctorInfo() {
             const doctorInfoBtn = document.getElementById('doctorInfoBtn');
@@ -1882,7 +2000,12 @@
                 const url = URL.createObjectURL(blob);
                 const a = document.createElement('a');
                 a.href = url;
-                a.download = `isyeri_hekimligi_backup_${new Date().toISOString().slice(0, 10)}.json`;
+                
+                // Tarih saat etiketli yedek dosya adı
+                const now = new Date();
+                const formattedBackupTime = `${now.getFullYear()}-${(now.getMonth()+1).toString().padStart(2, '0')}-${now.getDate().toString().padStart(2, '0')}_${now.getHours().toString().padStart(2, '0')}-${now.getMinutes().toString().padStart(2, '0')}-${now.getSeconds().toString().padStart(2, '0')}`;
+                a.download = `isyeri_hekimligi_backup_${formattedBackupTime}.json`;
+                
                 document.body.appendChild(a);
                 a.click();
                 document.body.removeChild(a);
@@ -2260,7 +2383,7 @@
                 }
 
                 const data = [
-                    ['S.No', 'Ad Soyad', 'TCKN', 'Muayene Tarihi', 'Sonraki Muayene Tarihi'],
+                    ['S.No', 'Ad Soyad', 'TCKN', 'Muayene Tarihi', 'Sonraki Muayene'],
                     ...appState.currentEmployees.map((emp, index) => [
                         index + 1,
                         emp.name || '',
@@ -2402,14 +2525,17 @@
                 const reader = new FileReader();
                 reader.onload = async (event) => {
                     const fileData = event.target.result;
+                    const now = new Date();
+                    const formattedFileTime = `${now.getFullYear()}-${(now.getMonth()+1).toString().padStart(2, '0')}-${now.getDate().toString().padStart(2, '0')} ${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}:${now.getSeconds().toString().padStart(2, '0')}`;
+
                     const fileRecord = {
                         id: Date.now().toString(),
                         employeeId: employee.id,
                         workplaceId: appState.currentWorkplace.id,
-                        fileName: file.name,
+                        fileName: `${formattedFileTime} - ${file.name}`,
                         fileType: file.type,
                         data: fileData,
-                        uploadedAt: new Date().toISOString()
+                        uploadedAt: now.toISOString()
                     };
                     
                     await appState.db.addFile(fileRecord);
@@ -2428,6 +2554,7 @@
         // Global fonksiyonlar
         window.showEk2Modal = showEk2Modal;
         window.showFileUploadModal = showFileUploadModal;
+        window.showFileListModal = showFileListModal;
     </script>
 </body>
 </html>
