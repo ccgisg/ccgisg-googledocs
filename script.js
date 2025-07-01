@@ -426,102 +426,59 @@ function formatDate(dateString) {
 function showEk2Modal(employeeIndex) {
     const employee = appState.currentEmployees[employeeIndex];
     appState.currentEmployeeIndex = employeeIndex;
-    
-    const today = new Date();
-    const formattedToday = today.toISOString().split('T')[0];
-    
-    const nextExamDate = new Date();
-    nextExamDate.setFullYear(nextExamDate.getFullYear() + 5);
-    const formattedNextExamDate = nextExamDate.toISOString().split('T')[0];
-    
-    const doctorInfo = JSON.parse(localStorage.getItem('doctorInfo')) || {};
-    
-    const ek2Content = document.getElementById('ek2FormContent');
-    ek2Content.innerHTML = `
-        <h4 class="text-center mb-4">EK-2 İŞE GİRİŞ/PERİYODİK MUAYENE FORMU</h4>
-        
-        <!-- İşyeri Bilgileri -->
-        <div class="mb-4">
-            <h5 class="border-bottom pb-2">İŞYERİNİN</h5>
-            <div class="row mb-2">
-                <div class="col-md-6">
-                    <label class="form-label">Ünvanı</label>
-                    <input type="text" class="form-control" value="${appState.currentWorkplace?.name || ''}">
-                </div>
-                <div class="col-md-6">
-                    <label class="form-label">SGK Sicil No.</label>
-                    <input type="text" class="form-control">
-                </div>
-            </div>
-            <div class="row mb-2">
-                <div class="col-md-6">
-                    <label class="form-label">Adresi</label>
-                    <input type="text" class="form-control" value="${appState.currentWorkplace?.address || ''}">
-                </div>
-                <div class="col-md-6">
-                    <label class="form-label">Tel ve Faks No</label>
-                    <input type="text" class="form-control">
-                </div>
-            </div>
-            <div class="mb-2">
-                <label class="form-label">E-Posta</label>
-                <input type="email" class="form-control">
-            </div>
-        </div>
 
-        <!-- Çalışan Bilgileri -->
-        <div class="mb-4">
-            <h5 class="border-bottom pb-2">ÇALIŞANIN</h5>
-            <div class="row mb-3">
-                <div class="col-md-6">
-                    <label class="form-label">Adı Soyadı</label>
-                    <input type="text" class="form-control" id="ek2Name" value="${employee.name || ''}">
-                </div>
-                <div class="col-md-6">
-                    <label class="form-label">TC Kimlik No</label>
-                    <input type="text" class="form-control" id="ek2Tckn" value="${employee.tckn || ''}">
-                </div>
-            </div>
-            <div class="row mb-3">
-                <div class="col-md-6">
-                    <label class="form-label">Muayene Tarihi</label>
-                    <input type="date" class="form-control" id="ek2ExamDate" value="${formattedToday}">
-                </div>
-                <div class="col-md-6">
-                    <label class="form-label">Sonraki Muayene Tarihi</label>
-                    <input type="date" class="form-control" id="ek2NextExamDate" value="${formattedNextExamDate}" readonly>
-                </div>
-            </div>
-            
-            <!-- EK-2 formunun geri kalanı buraya eklenecek -->
-            
-            <!-- Doktor Bilgileri ve İmza -->
-            <div class="mt-4 border-top pt-3">
-                <div class="row">
-                    <div class="col-md-6">
-                        <label class="form-label">Tarih</label>
-                        <input type="date" class="form-control" value="${formattedToday}">
-                    </div>
-                    <div class="col-md-6">
-                        <label class="form-label">İmza</label>
-                        <div class="signature-line mb-2"></div>
-                        <div class="text-center">
-                            <p class="mb-0">${doctorInfo.name || 'Doktor Adı Soyadı'}</p>
-                            <p class="small text-muted">Diploma No: ${doctorInfo.diplomaNo || ''} - Tarih: ${doctorInfo.diplomaDate || ''}</p>
-                            <p class="small text-muted">Sertifika No: ${doctorInfo.certificateNo || ''} - Tarih: ${doctorInfo.certificateDate || ''}</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    `;
-    
-    document.getElementById('ek2ExamDate').addEventListener('change', function() {
-        const examDate = new Date(this.value);
-        const nextExamDate = new Date(examDate);
-        nextExamDate.setFullYear(nextExamDate.getFullYear() + 5);
-        document.getElementById('ek2NextExamDate').value = nextExamDate.toISOString().split('T')[0];
-    });
+    // Google Docs düzenleme URL'sini oluştur
+    const docId = "1i_4ZaDcmsPYuLDzGwAdxuD5CYgfGaRHG";
+    const editUrl = `https://docs.google.com/document/d/${docId}/edit`;
+
+    // Yeni sekmede Google Docs'u aç
+    const newWindow = window.open(editUrl, '_blank');
+
+    // 5 saniye sonra bilgi doldurma işlemini başlat
+    setTimeout(() => {
+        try {
+            // Çalışan bilgilerini yeni pencereye gönder
+            const fillScript = `
+                // Ad Soyad ve TCKN alanlarını bul
+                const nameElements = document.evaluate(
+                    "//strong[contains(text(), 'ÇALIŞANIN ADI SOYADI')]",
+                    document,
+                    null,
+                    XPathResult.ORDERED_NODE_SNAPSHOT_TYPE,
+                    null
+                );
+                
+                const tcknElements = document.evaluate(
+                    "//strong[contains(text(), 'ÇALIŞANIN T.C KİMLİK NO’SU')]",
+                    document,
+                    null,
+                    XPathResult.ORDERED_NODE_SNAPSHOT_TYPE,
+                    null
+                );
+                
+                // Bilgileri doldur
+                if (nameElements.snapshotLength > 0) {
+                    nameElements.snapshotItem(0).nextSibling.textContent = "${employee.name}";
+                }
+                
+                if (tcknElements.snapshotLength > 0) {
+                    tcknElements.snapshotItem(0).nextSibling.textContent = "${employee.tckn}";
+                }
+                
+                alert("Bilgiler otomatik dolduruldu! Lütfen dokümanı düzenleyin.");
+            `;
+
+            // Yeni pencereye script gönder
+            newWindow.postMessage({
+                type: 'fillDocument',
+                script: fillScript
+            }, '*');
+        } catch (error) {
+            console.error("Doküman doldurma hatası:", error);
+            newWindow.postMessage("Doküman doldurulamadı. Lütfen manuel düzenleyin.", '*');
+        }
+    }, 5000);
+});
     
     const ek2Modal = new bootstrap.Modal(document.getElementById('ek2Modal'));
     ek2Modal.show();
