@@ -1,1 +1,246 @@
 
+:root {
+    --primary-color: #2980b9;
+    --primary-hover: #3498db;
+    --secondary-color: #7f8c8d;
+    --secondary-hover: #95a5a6;
+    --success-color: #27ae60;
+    --success-hover: #2ecc71;
+    --danger-color: #e74c3c;
+    --danger-hover: #c0392b;
+    --warning-color: #f39c12;
+    --warning-hover: #e67e22;
+    --light-color: #ecf0f1;
+    --dark-color: #2c3e50;
+    --border-color: #ddd;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f5f7fa;
+    color: #333;
+    line-height: 1.6;
+}
+
+#app {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Giriş Ekranı */
+.login-screen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-hover) 100%);
+}
+
+.login-container {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.login-container h1 {
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+}
+
+.input-group {
+    margin-bottom: 1.5rem;
+    text-align: left;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.error-message {
+    color: var(--danger-color);
+    margin-top: 1rem;
+    display: none;
+    font-size: 0.9rem;
+}
+
+/* Ana Uygulama */
+.app-header {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.content-area {
+    flex: 1;
+    padding: 1.5rem;
+    background-color: white;
+}
+
+/* İşyeri Listesi */
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.workplace-list {
+    list-style: none;
+    padding: 0;
+}
+
+.workplace-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--light-color);
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+    border-left: 4px solid var(--primary-color);
+}
+
+.workplace-info {
+    flex: 1;
+    cursor: pointer;
+}
+
+.workplace-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.workplace-actions button {
+    font-size: 0.8rem;
+    padding: 0.25rem 0.5rem;
+}
+
+/* Çalışan Tablosu */
+.table-container {
+    margin-top: 1.5rem;
+    overflow-x: auto;
+}
+
+.table-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.employee-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.employee-actions button {
+    font-size: 0.8rem;
+    padding: 0.25rem 0.5rem;
+}
+
+/* Modal İçeriği */
+.modal-content {
+    border-radius: 10px;
+}
+
+.modal-header {
+    border-bottom: 1px solid var(--border-color);
+}
+
+.modal-footer {
+    border-top: 1px solid var(--border-color);
+}
+
+/* Buton stilleri */
+.btn-warning {
+    background-color: var(--warning-color);
+    color: white;
+}
+
+.btn-warning:hover {
+    background-color: var(--warning-hover);
+    color: white;
+}
+
+/* EK-2 Formu Stilleri */
+.signature-line {
+    height: 1px;
+    background-color: #000;
+    margin: 10px 0;
+    width: 100%;
+}
+
+.modal-body {
+    max-height: 70vh;
+    overflow-y: auto;
+}
+
+@media print {
+    body * {
+        visibility: hidden;
+    }
+    #ek2Modal .modal-content, 
+    #ek2Modal .modal-content * {
+        visibility: visible;
+    }
+    #ek2Modal .modal-content {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+    }
+    .no-print {
+        display: none !important;
+    }
+}
+
+/* Responsive Düzen */
+@media (max-width: 768px) {
+    .login-container {
+        padding: 1.5rem;
+        margin: 1rem;
+    }
+
+    .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .workplace-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .workplace-actions {
+        width: 100%;
+        justify-content: flex-end;
+        margin-top: 0.5rem;
+    }
+
+    .table-actions {
+        flex-direction: column;
+    }
+    
+    .employee-actions {
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+}
