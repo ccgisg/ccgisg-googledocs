@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>İşyeri Hekimliği Uygulaması</title>
+    <title>İşyeri Hekimliği Uygulaması - Tam EK-2 Formu</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
@@ -34,1660 +34,692 @@
             background-color: #f5f7fa;
             color: #333;
             line-height: 1.6;
+            padding: 20px;
         }
 
-        #app {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        /* Giriş Ekranı */
-        .login-screen {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-hover) 100%);
-        }
-
-        .login-container {
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
             background: white;
-            padding: 2.5rem;
+            padding: 20px;
             border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 400px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+
+        .header {
             text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 15px;
         }
 
-        .login-container h1 {
+        .header h1 {
             color: var(--primary-color);
-            margin-bottom: 1.5rem;
+            margin-bottom: 10px;
         }
 
-        .input-group {
-            margin-bottom: 1.5rem;
-            text-align: left;
-        }
-
-        .input-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-        }
-
-        .error-message {
-            color: var(--danger-color);
-            margin-top: 1rem;
-            display: none;
-            font-size: 0.9rem;
-        }
-
-        /* Ana Uygulama */
-        .app-header {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 1rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-
-        .content-area {
-            flex: 1;
-            padding: 1.5rem;
-            background-color: white;
-        }
-
-        /* İşyeri Listesi */
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-        }
-
-        .workplace-list {
-            list-style: none;
-            padding: 0;
-        }
-
-        .workplace-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: var(--light-color);
-            padding: 1rem;
-            border-radius: 8px;
-            margin-bottom: 0.5rem;
-            border-left: 4px solid var(--primary-color);
-        }
-
-        .workplace-info {
-            flex: 1;
-            cursor: pointer;
-        }
-
-        .workplace-actions {
-            display: flex;
-            gap: 0.5rem;
-        }
-
-        .workplace-actions button {
-            font-size: 0.8rem;
-            padding: 0.25rem 0.5rem;
-        }
-
-        /* Çalışan Tablosu */
-        .table-container {
-            margin-top: 1.5rem;
-            overflow-x: auto;
-        }
-
-        .table-actions {
-            display: flex;
-            justify-content: flex-end;
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-
-        .employee-actions {
-            display: flex;
-            gap: 0.5rem;
-        }
-
-        .employee-actions button {
-            font-size: 0.8rem;
-            padding: 0.25rem 0.5rem;
-        }
-
-        /* Modal İçeriği */
-        .modal-content {
-            border-radius: 10px;
-        }
-
-        .modal-header {
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .modal-footer {
-            border-top: 1px solid var(--border-color);
-        }
-
-        /* Buton stilleri */
-        .btn-warning {
-            background-color: var(--warning-color);
-            color: white;
-        }
-
-        .btn-warning:hover {
-            background-color: var(--warning-hover);
-            color: white;
-        }
-
-        /* EK-2 Formu Stilleri */
-        .signature-line {
-            height: 1px;
-            background-color: #000;
-            margin: 10px 0;
-            width: 100%;
-        }
-
-        .modal-body {
-            max-height: 70vh;
-            overflow-y: auto;
+        .ek2-form {
+            font-size: 14px;
         }
         
-        .ek2-form {
-            font-size: 0.9rem;
+        .section-title {
+            background-color: #e9ecef;
+            padding: 8px 12px;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-weight: bold;
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        .sub-section {
+            padding-left: 15px;
+            margin-bottom: 15px;
         }
         
         .ek2-form table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 1rem;
+            margin-bottom: 15px;
         }
         
         .ek2-form th, .ek2-form td {
             border: 1px solid #ddd;
             padding: 8px;
             text-align: left;
+            vertical-align: top;
         }
         
         .ek2-form th {
-            background-color: #f2f2f2;
+            background-color: #f8f9fa;
             font-weight: bold;
         }
         
-        .ek2-form .section-title {
-            background-color: #e9ecef;
-            padding: 8px;
-            margin-top: 1.5rem;
-            margin-bottom: 0.5rem;
-            font-weight: bold;
-            border-left: 4px solid var(--primary-color);
+        .form-control-sm {
+            padding: 3px 6px;
+            font-size: 13px;
+            height: 28px;
         }
         
-        .ek2-form .sub-section {
-            padding-left: 1rem;
+        .form-check-input {
+            margin-top: 0;
         }
         
-        .ek2-form .signature-box {
-            margin-top: 2rem;
-            padding: 1rem;
+        .signature-box {
+            margin-top: 30px;
+            padding: 15px;
             border: 1px solid #000;
             border-radius: 5px;
+            background-color: #f8f9fa;
         }
-
+        
+        .signature-line {
+            height: 1px;
+            background-color: #000;
+            margin: 20px 0;
+            width: 100%;
+        }
+        
+        .conclusion-section {
+            margin-top: 30px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f8f9fa;
+        }
+        
+        .footer-note {
+            font-size: 12px;
+            color: #6c757d;
+            margin-top: 5px;
+        }
+        
+        .print-controls {
+            margin-top: 30px;
+            text-align: center;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+        }
+        
+        .form-group-row {
+            display: flex;
+            margin-bottom: 10px;
+            align-items: center;
+        }
+        
+        .form-group-row label {
+            width: 150px;
+            margin-right: 10px;
+            margin-bottom: 0;
+        }
+        
+        .form-group-row .form-control {
+            flex: 1;
+        }
+        
+        .two-column {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .two-column > div {
+            flex: 1;
+        }
+        
+        .text-center {
+            text-align: center;
+        }
+        
+        .text-right {
+            text-align: right;
+        }
+        
+        .mb-4 {
+            margin-bottom: 1.5rem;
+        }
+        
+        .mt-4 {
+            margin-top: 1.5rem;
+        }
+        
         @media print {
-            body * {
-                visibility: hidden;
-            }
-            #ek2Modal .modal-content, 
-            #ek2Modal .modal-content * {
-                visibility: visible;
-            }
-            #ek2Modal .modal-content {
-                position: absolute;
-                left: 0;
-                top: 0;
-                width: 100%;
-            }
             .no-print {
-                display: none !important;
+                display: none;
             }
-        }
-
-        /* Responsive Düzen */
-        @media (max-width: 768px) {
-            .login-container {
-                padding: 1.5rem;
-                margin: 1rem;
+            body {
+                padding: 0;
+                background: white;
             }
-
-            .section-header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 1rem;
+            .container {
+                box-shadow: none;
+                padding: 10px;
             }
-
-            .workplace-item {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .workplace-actions {
-                width: 100%;
-                justify-content: flex-end;
-                margin-top: 0.5rem;
-            }
-
-            .table-actions {
-                flex-direction: column;
-            }
-            
-            .employee-actions {
-                flex-direction: column;
-                gap: 0.25rem;
+            .print-controls {
+                display: none;
             }
         }
     </style>
 </head>
 <body>
-    <div id="app">
-        <!-- Giriş Ekranı -->
-        <div class="login-screen" id="loginScreen">
-            <div class="login-container">
-                <h1><i class="fas fa-user-md"></i> İşyeri Hekimliği</h1>
-                <div class="input-group">
-                    <label for="username">Kullanıcı Adı</label>
-                    <input type="text" id="username" class="form-control" placeholder="Kullanıcı adınız">
-                </div>
-                <div class="input-group">
-                    <label for="password">Şifre</label>
-                    <input type="password" id="password" class="form-control" placeholder="Şifreniz">
-                </div>
-                <button id="loginBtn" class="btn btn-primary w-100">Giriş Yap</button>
-                <div id="loginError" class="error-message"></div>
-            </div>
+    <div class="container">
+        <div class="header">
+            <h1><i class="fas fa-file-medical"></i> EK-2 İŞE GİRİŞ/PERİYODİK MUAYENE FORMU</h1>
+            <p class="text-muted">İş Sağlığı ve Güvenliği Kanunu Uyarınca Düzenlenmiştir</p>
         </div>
-
-        <!-- Ana Uygulama -->
-        <div id="mainApp" style="display: none;">
-            <header class="app-header">
-                <h2 id="welcomeText"></h2>
-                <div>
-                    <button id="doctorInfoBtn" class="btn btn-light me-2">
-                        <i class="fas fa-user-md"></i> Doktor Bilgileri
-                    </button>
-                    <button id="logoutBtn" class="btn btn-light">
-                        <i class="fas fa-sign-out-alt"></i> Çıkış Yap
-                    </button>
-                </div>
-            </header>
-
-            <div class="content-area">
-                <!-- İşyeri Listesi -->
-                <div id="workplaceSection">
-                    <div class="section-header">
-                        <h3><i class="fas fa-building"></i> İşyerleri</h3>
-                        <div>
-                            <button id="addWorkplaceBtn" class="btn btn-success">
-                                <i class="fas fa-plus"></i> Yeni İşyeri
-                            </button>
-                        </div>
-                    </div>
-                    <ul class="workplace-list" id="workplaceList"></ul>
-                </div>
-
-                <!-- Çalışan Listesi -->
-                <div id="employeeSection" style="display: none;">
-                    <div class="section-header">
-                        <button id="backBtn" class="btn btn-secondary me-2">
-                            <i class="fas fa-arrow-left"></i> Geri
-                        </button>
-                        <h3 id="currentWorkplaceTitle"></h3>
-                        <div>
-                            <button id="addEmployeeBtn" class="btn btn-success me-2">
-                                <i class="fas fa-plus"></i> Yeni Çalışan
-                            </button>
-                            <button id="importExcelBtn" class="btn btn-info me-2">
-                                <i class="fas fa-file-import"></i> Excel'den Al
-                            </button>
-                            <button id="exportExcelBtn" class="btn btn-warning">
-                                <i class="fas fa-file-export"></i> Excel'e Aktar
-                            </button>
-                        </div>
-                    </div>
-                    <div class="table-container">
-                        <table class="table table-striped" id="employeeTable">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Ad Soyad</th>
-                                    <th>TCKN</th>
-                                    <th>Muayene Tarihi</th>
-                                    <th>Sonraki Muayene</th>
-                                    <th>İşlemler</th>
-                                </tr>
-                            </thead>
-                            <tbody></tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modaller -->
-    <!-- İşyeri Modalı -->
-    <div class="modal fade" id="workplaceModal" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalTitle">Yeni İşyeri</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="mb-3">
-                        <label for="workplaceNameInput" class="form-label">İşyeri Adı</label>
-                        <input type="text" class="form-control" id="workplaceNameInput">
-                    </div>
-                    <div class="mb-3">
-                        <label for="workplaceAddressInput" class="form-label">Adres</label>
-                        <textarea class="form-control" id="workplaceAddressInput" rows="3"></textarea>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">İptal</button>
-                    <button type="button" class="btn btn-primary" id="saveWorkplaceBtn">Kaydet</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Çalışan Modalı -->
-    <div class="modal fade" id="employeeModal" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="employeeModalTitle">Yeni Çalışan</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="mb-3">
-                        <label for="employeeNameInput" class="form-label">Ad Soyad</label>
-                        <input type="text" class="form-control" id="employeeNameInput">
-                    </div>
-                    <div class="mb-3">
-                        <label for="employeeTcknInput" class="form-label">TC Kimlik No</label>
-                        <input type="text" class="form-control" id="employeeTcknInput">
-                    </div>
-                    <div class="mb-3">
-                        <label for="employeeExamDateInput" class="form-label">Muayene Tarihi</label>
-                        <input type="date" class="form-control" id="employeeExamDateInput">
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">İptal</button>
-                    <button type="button" class="btn btn-primary" id="saveEmployeeBtn">Kaydet</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- EK-2 Modalı -->
-    <div class="modal fade" id="ek2Modal" tabindex="-1">
-        <div class="modal-dialog modal-xl">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">EK-2 Formu</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body" id="ek2FormContent"></div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
-                    <button type="button" class="btn btn-primary" id="saveEk2Btn">Kaydet</button>
-                    <button type="button" class="btn btn-success" id="printEk2Btn">
-                        <i class="fas fa-print"></i> Yazdır
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Dosya Yükleme Modalı -->
-    <div class="modal fade" id="fileUploadModal" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Dosya Yükle</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <input type="file" id="fileInput" class="form-control">
-                    <div class="mt-3" id="uploadedFilesList"></div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">İptal</button>
-                    <button type="button" class="btn btn-primary" id="uploadFileBtn">Yükle</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Doktor Bilgileri Modalı -->
-    <div class="modal fade" id="doctorInfoModal" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Doktor Bilgileri</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="mb-3">
-                        <label for="doctorNameInput" class="form-label">Adı Soyadı</label>
-                        <input type="text" class="form-control" id="doctorNameInput">
-                    </div>
-                    <div class="mb-3">
-                        <label for="diplomaNoInput" class="form-label">Diploma No</label>
-                        <input type="text" class="form-control" id="diplomaNoInput">
-                    </div>
-                    <div class="mb-3">
-                        <label for="diplomaDateInput" class="form-label">Diploma Tarihi</label>
-                        <input type="date" class="form-control" id="diplomaDateInput">
-                    </div>
-                    <div class="mb-3">
-                        <label for="certificateNoInput" class="form-label">Sertifika No</label>
-                        <input type="text" class="form-control" id="certificateNoInput">
-                    </div>
-                    <div class="mb-3">
-                        <label for="certificateDateInput" class="form-label">Sertifika Tarihi</label>
-                        <input type="date" class="form-control" id="certificateDateInput">
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">İptal</button>
-                    <button type="button" class="btn btn-primary" id="saveDoctorInfoBtn">Kaydet</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.sheetjs.com/xlsx-0.19.3/package/dist/xlsx.full.min.js"></script>
-    <script>
-        // Veritabanı Sınıfı
-        class Database {
-            constructor() {
-                this.dbName = 'isyeriHekimligiDB';
-                this.version = 8; // Versiyon artırıldı
-                this.db = null;
-            }
-
-            async initDB() {
-                return new Promise((resolve, reject) => {
-                    const request = indexedDB.open(this.dbName, this.version);
-
-                    request.onerror = (event) => {
-                        console.error("Veritabanı hatası:", event.target.error);
-                        reject(event.target.error);
-                    };
-
-                    request.onsuccess = (event) => {
-                        this.db = event.target.result;
-                        resolve(this.db);
-                    };
-
-                    request.onupgradeneeded = (event) => {
-                        const db = event.target.result;
-                        
-                        if (!db.objectStoreNames.contains('workplaces')) {
-                            db.createObjectStore('workplaces', { keyPath: 'id' });
-                        }
-                        
-                        let employeeStore;
-                        if (!db.objectStoreNames.contains('employees')) {
-                            employeeStore = db.createObjectStore('employees', { keyPath: 'id' });
-                        } else {
-                            employeeStore = event.target.transaction.objectStore('employees');
-                        }
-                        
-                        if (!employeeStore.indexNames.contains('workplaceId')) {
-                            employeeStore.createIndex('workplaceId', 'workplaceId', { unique: false });
-                        }
-
-                        if (!db.objectStoreNames.contains('files')) {
-                            const filesStore = db.createObjectStore('files', { keyPath: 'id' });
-                            filesStore.createIndex('employeeId', 'employeeId', { unique: false });
-                        }
-                    };
-                });
-            }
-
-            async getWorkplaces() {
-                return new Promise((resolve, reject) => {
-                    const transaction = this.db.transaction(['workplaces'], 'readonly');
-                    const store = transaction.objectStore('workplaces');
-                    const request = store.getAll();
-
-                    request.onsuccess = () => resolve(request.result);
-                    request.onerror = (event) => reject(event.target.error);
-                });
-            }
-
-            async addWorkplace(workplace) {
-                return new Promise((resolve, reject) => {
-                    const transaction = this.db.transaction(['workplaces'], 'readwrite');
-                    const store = transaction.objectStore('workplaces');
-                    const request = store.add(workplace);
-
-                    request.onsuccess = () => resolve(request.result);
-                    request.onerror = (event) => reject(event.target.error);
-                });
-            }
-
-            async updateWorkplace(workplace) {
-                return new Promise((resolve, reject) => {
-                    const transaction = this.db.transaction(['workplaces'], 'readwrite');
-                    const store = transaction.objectStore('workplaces');
-                    const request = store.put(workplace);
-
-                    request.onsuccess = () => resolve(request.result);
-                    request.onerror = (event) => reject(event.target.error);
-                });
-            }
-
-            async deleteWorkplace(id) {
-                return new Promise((resolve, reject) => {
-                    const transaction = this.db.transaction(['workplaces'], 'readwrite');
-                    const store = transaction.objectStore('workplaces');
-                    const request = store.delete(id);
-
-                    request.onsuccess = () => resolve(request.result);
-                    request.onerror = (event) => reject(event.target.error);
-                });
-            }
-
-            async getEmployees(workplaceId) {
-                return new Promise((resolve, reject) => {
-                    const transaction = this.db.transaction(['employees'], 'readonly');
-                    const store = transaction.objectStore('employees');
-                    const index = store.index('workplaceId');
-                    const request = index.getAll(workplaceId);
-
-                    request.onsuccess = () => resolve(request.result);
-                    request.onerror = (event) => reject(event.target.error);
-                });
-            }
-
-            async addEmployee(employee) {
-                return new Promise((resolve, reject) => {
-                    const transaction = this.db.transaction(['employees'], 'readwrite');
-                    const store = transaction.objectStore('employees');
-                    const request = store.add(employee);
-
-                    request.onsuccess = () => resolve(request.result);
-                    request.onerror = (event) => reject(event.target.error);
-                });
-            }
-
-            async updateEmployee(employee) {
-                return new Promise((resolve, reject) => {
-                    const transaction = this.db.transaction(['employees'], 'readwrite');
-                    const store = transaction.objectStore('employees');
-                    const request = store.put(employee);
-
-                    request.onsuccess = () => resolve(request.result);
-                    request.onerror = (event) => reject(event.target.error);
-                });
-            }
-
-            async deleteEmployee(id) {
-                return new Promise((resolve, reject) => {
-                    const transaction = this.db.transaction(['employees'], 'readwrite');
-                    const store = transaction.objectStore('employees');
-                    const request = store.delete(id);
-
-                    request.onsuccess = () => resolve(request.result);
-                    request.onerror = (event) => reject(event.target.error);
-                });
-            }
-
-            async addFile(file) {
-                return new Promise((resolve, reject) => {
-                    const transaction = this.db.transaction(['files'], 'readwrite');
-                    const store = transaction.objectStore('files');
-                    const request = store.add(file);
-
-                    request.onsuccess = () => resolve(request.result);
-                    request.onerror = (event) => reject(event.target.error);
-                });
-            }
-
-            async getFilesByEmployee(employeeId) {
-                return new Promise((resolve, reject) => {
-                    const transaction = this.db.transaction(['files'], 'readonly');
-                    const store = transaction.objectStore('files');
-                    const index = store.index('employeeId');
-                    const request = index.getAll(employeeId);
-
-                    request.onsuccess = () => resolve(request.result);
-                    request.onerror = (event) => reject(event.target.error);
-                });
-            }
-
-            async deleteFile(id) {
-                return new Promise((resolve, reject) => {
-                    const transaction = this.db.transaction(['files'], 'readwrite');
-                    const store = transaction.objectStore('files');
-                    const request = store.delete(id);
-
-                    request.onsuccess = () => resolve(request.result);
-                    request.onerror = (event) => reject(event.target.error);
-                });
-            }
-        }
-
-        // Uygulama State'i
-        const appState = {
-            db: new Database(),
-            currentUser: null,
-            currentWorkplace: null,
-            currentEmployees: [],
-            currentEmployeeIndex: null,
-            currentFileUploadIndex: null,
-            isEditingWorkplace: false,
-            isEditingEmployee: false
-        };
-
-        // Sayfa Yüklendiğinde
-        document.addEventListener('DOMContentLoaded', async () => {
-            try {
-                await appState.db.initDB();
-                initLogin();
-                checkAuth();
-                initModals();
-                initWorkplaceActions();
-                initEmployeeActions();
-                initDoctorInfo();
-                initLogout();
-                initBackButton();
-            } catch (error) {
-                console.error('Başlatma hatası:', error);
-                showError('Uygulama başlatılırken bir hata oluştu: ' + error.message);
-            }
-        });
-
-        // Giriş İşlemleri
-        function initLogin() {
-            const loginBtn = document.getElementById('loginBtn');
-            if (loginBtn) {
-                loginBtn.addEventListener('click', login);
-            }
+        
+        <div class="ek2-form">
+            <!-- İşyeri Bilgileri -->
+            <div class="section-title">İŞYERİNİN</div>
+            <table>
+                <tr>
+                    <th width="20%">Ünvanı</th>
+                    <td><input type="text" class="form-control form-control-sm" value="Örnek İşyeri A.Ş."></td>
+                </tr>
+                <tr>
+                    <th>SGK Sicil No.</th>
+                    <td><input type="text" class="form-control form-control-sm" value="123456789"></td>
+                </tr>
+                <tr>
+                    <th>Adresi</th>
+                    <td><input type="text" class="form-control form-control-sm" value="Örnek Mah. Demo Cad. No: 45 İstanbul"></td>
+                </tr>
+                <tr>
+                    <th>Tel ve Faks No</th>
+                    <td><input type="text" class="form-control form-control-sm" value="0212 345 67 89 / 0212 345 67 90"></td>
+                </tr>
+                <tr>
+                    <th>E-Posta</th>
+                    <td><input type="email" class="form-control form-control-sm" value="info@ornekisyeri.com"></td>
+                </tr>
+            </table>
             
-            document.getElementById('password').addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') {
-                    login();
-                }
-            });
-        }
-
-        async function login() {
-            try {
-                const username = document.getElementById('username').value.trim();
-                const password = document.getElementById('password').value.trim();
-                const errorElement = document.getElementById('loginError');
-
-                errorElement.textContent = '';
-                
-                if (!username || !password) {
-                    throw new Error('Kullanıcı adı ve şifre gereklidir');
-                }
-
-                if (username === 'hekim' && password === 'Sifre123!') {
-                    localStorage.setItem('authToken', 'demo-token');
-                    appState.currentUser = { username, role: 'doctor' };
-                    showMainView();
-                    await loadWorkplaces();
-                } else {
-                    throw new Error('Geçersiz kullanıcı adı veya şifre!');
-                }
-            } catch (error) {
-                console.error('Giriş hatası:', error);
-                showError(error.message);
-            }
-        }
-
-        function showError(message) {
-            const errorElement = document.getElementById('loginError');
-            if (errorElement) {
-                errorElement.textContent = message;
-                errorElement.style.display = 'block';
-            } else {
-                alert(message);
-            }
-        }
-
-        function checkAuth() {
-            if (localStorage.getItem('authToken')) {
-                appState.currentUser = { username: 'hekim', role: 'doctor' };
-                showMainView();
-                loadWorkplaces();
-            }
-        }
-
-        function showMainView() {
-            document.getElementById('loginScreen').style.display = 'none';
-            document.getElementById('mainApp').style.display = 'block';
-            document.getElementById('welcomeText').textContent = `Hoş geldiniz, ${appState.currentUser.username}`;
-        }
-
-        // Çıkış İşlemi
-        function initLogout() {
-            const logoutBtn = document.getElementById('logoutBtn');
-            if (logoutBtn) {
-                logoutBtn.addEventListener('click', () => {
-                    localStorage.removeItem('authToken');
-                    location.reload();
-                });
-            }
-        }
-
-        // Modal İşlemleri
-        function initModals() {
-            // Bootstrap modal yapısı kullanıldığı için ekstra init gerekmiyor
-        }
-
-        // İşyeri İşlemleri
-        async function loadWorkplaces() {
-            try {
-                const workplaces = await appState.db.getWorkplaces();
-                
-                if (workplaces.length === 0) {
-                    await addDemoData();
-                    return loadWorkplaces();
-                }
-
-                renderWorkplaces(workplaces);
-            } catch (error) {
-                console.error('İşyerleri yüklenirken hata:', error);
-                showError('İşyerleri yüklenirken hata oluştu');
-            }
-        }
-
-        async function addDemoData() {
-            const demoWorkplaces = [
-                { id: '1', name: 'Örnek İşyeri 1', address: 'Örnek Adres 1', createdAt: new Date().toISOString() },
-                { id: '2', name: 'Örnek İşyeri 2', address: 'Örnek Adres 2', createdAt: new Date().toISOString() }
-            ];
-
-            for (const workplace of demoWorkplaces) {
-                await appState.db.addWorkplace(workplace);
-            }
-        }
-
-        function renderWorkplaces(workplaces) {
-            const listElement = document.getElementById('workplaceList');
-            listElement.innerHTML = '';
-
-            workplaces.forEach(workplace => {
-                const li = document.createElement('li');
-                li.className = 'workplace-item';
-                li.innerHTML = `
-                    <div class="workplace-info">
-                        <h4>${workplace.name}</h4>
-                        <p>${workplace.address || 'Adres bilgisi yok'}</p>
-                    </div>
-                    <div class="workplace-actions">
-                        <button class="btn btn-sm btn-warning edit-workplace" data-id="${workplace.id}">Düzenle</button>
-                        <button class="btn btn-sm btn-danger delete-workplace" data-id="${workplace.id}">Sil</button>
-                    </div>
-                `;
-                
-                li.querySelector('.workplace-info').addEventListener('click', async () => {
-                    appState.currentWorkplace = workplace;
-                    await showWorkplaceDetails(workplace);
-                });
-                
-                listElement.appendChild(li);
-            });
-
-            document.querySelectorAll('.edit-workplace').forEach(btn => {
-                btn.addEventListener('click', async (e) => {
-                    const workplaceId = e.target.getAttribute('data-id');
-                    const workplace = workplaces.find(w => w.id === workplaceId);
-                    if (workplace) {
-                        appState.isEditingWorkplace = true;
-                        appState.currentWorkplace = workplace;
-                        document.getElementById('modalTitle').textContent = 'İşyeri Düzenle';
-                        document.getElementById('workplaceNameInput').value = workplace.name;
-                        document.getElementById('workplaceAddressInput').value = workplace.address || '';
-                        const workplaceModal = new bootstrap.Modal(document.getElementById('workplaceModal'));
-                        workplaceModal.show();
-                    }
-                });
-            });
-
-            document.querySelectorAll('.delete-workplace').forEach(btn => {
-                btn.addEventListener('click', async (e) => {
-                    const workplaceId = e.target.getAttribute('data-id');
-                    const workplace = workplaces.find(w => w.id === workplaceId);
-                    if (workplace && confirm(`${workplace.name} işyerini silmek istediğinize emin misiniz?`)) {
-                        try {
-                            const employees = await appState.db.getEmployees(workplaceId);
-                            for (const employee of employees) {
-                                await appState.db.deleteEmployee(employee.id);
-                            }
-                            
-                            await appState.db.deleteWorkplace(workplaceId);
-                            await loadWorkplaces();
-                        } catch (error) {
-                            console.error('İşyeri silme hatası:', error);
-                            showError('İşyeri silinirken hata oluştu');
-                        }
-                    }
-                });
-            });
-        }
-
-        async function showWorkplaceDetails(workplace) {
-            document.getElementById('workplaceSection').style.display = 'none';
-            document.getElementById('employeeSection').style.display = 'block';
-            document.getElementById('currentWorkplaceTitle').textContent = workplace.name;
-            await loadEmployees(workplace.id);
-        }
-
-        // Geri Butonu
-        function initBackButton() {
-            const backBtn = document.getElementById('backBtn');
-            if (backBtn) {
-                backBtn.addEventListener('click', () => {
-                    document.getElementById('employeeSection').style.display = 'none';
-                    document.getElementById('workplaceSection').style.display = 'block';
-                    document.getElementById('employeeTable').querySelector('tbody').innerHTML = '';
-                    appState.currentWorkplace = null;
-                });
-            }
-        }
-
-        // Çalışan İşlemleri
-        async function loadEmployees(workplaceId) {
-            try {
-                const employees = await appState.db.getEmployees(workplaceId);
-                appState.currentEmployees = employees;
-                renderEmployees(employees);
-            } catch (error) {
-                console.error('Çalışanlar yüklenirken hata:', error);
-                showError('Çalışanlar yüklenirken hata oluştu');
-            }
-        }
-
-        function renderEmployees(employees) {
-            const tbody = document.getElementById('employeeTable').querySelector('tbody');
-            tbody.innerHTML = '';
-
-            if (employees.length === 0) {
-                const tr = document.createElement('tr');
-                tr.innerHTML = '<td colspan="6" style="text-align: center;">Henüz çalışan eklenmemiş</td>';
-                tbody.appendChild(tr);
-                return;
-            }
-
-            employees.forEach((emp, index) => {
-                const tr = document.createElement('tr');
-                tr.innerHTML = `
-                    <td>${index + 1}</td>
-                    <td>${emp.name || ''}</td>
-                    <td>${emp.tckn || ''}</td>
-                    <td>${emp.examDate ? formatDate(emp.examDate) : ''}</td>
-                    <td>${emp.nextExamDate ? formatDate(emp.nextExamDate) : ''}</td>
+            <!-- Çalışan Bilgileri -->
+            <div class="section-title">ÇALIŞANIN</div>
+            <table>
+                <tr>
+                    <th width="20%">Adı Soyadı</th>
+                    <td><input type="text" class="form-control form-control-sm" value="Ahmet Yılmaz"></td>
+                </tr>
+                <tr>
+                    <th>TC Kimlik No</th>
+                    <td><input type="text" class="form-control form-control-sm" value="12345678901"></td>
+                </tr>
+                <tr>
+                    <th>Doğum Yeri ve Tarihi</th>
+                    <td><input type="text" class="form-control form-control-sm" value="İstanbul, 15.05.1985"></td>
+                </tr>
+                <tr>
+                    <th>Cinsiyeti</th>
                     <td>
-                        <div class="employee-actions">
-                            <button class="btn btn-sm btn-primary ek2-btn">EK-2</button>
-                            <button class="btn btn-sm btn-secondary upload-btn">EK-2 Yükle</button>
-                            <button class="btn btn-sm btn-info edit-employee">Düzenle</button>
-                            <button class="btn btn-sm btn-danger delete-employee">Sil</button>
-                        </div>
+                        <select class="form-select form-select-sm">
+                            <option value="">Seçiniz</option>
+                            <option value="male" selected>Erkek</option>
+                            <option value="female">Kadın</option>
+                        </select>
                     </td>
-                `;
-                
-                // Butonlara olay dinleyicileri ekle
-                const ek2Btn = tr.querySelector('.ek2-btn');
-                ek2Btn.addEventListener('click', () => {
-                    showEk2Modal(index);
-                });
-                
-                const uploadBtn = tr.querySelector('.upload-btn');
-                uploadBtn.addEventListener('click', () => {
-                    showFileUploadModal(index);
-                });
-                
-                const editBtn = tr.querySelector('.edit-employee');
-                editBtn.addEventListener('click', () => {
-                    editEmployee(index);
-                });
-                
-                const deleteBtn = tr.querySelector('.delete-employee');
-                deleteBtn.addEventListener('click', async () => {
-                    if (confirm('Bu çalışanı silmek istediğinize emin misiniz?')) {
-                        try {
-                            await appState.db.deleteEmployee(emp.id);
-                            await loadEmployees(appState.currentWorkplace.id);
-                        } catch (error) {
-                            console.error('Çalışan silme hatası:', error);
-                            showError('Çalışan silinirken hata oluştu');
-                        }
-                    }
-                });
-                
-                tbody.appendChild(tr);
-            });
-        }
-
-        function formatDate(dateString) {
-            if (!dateString) return '';
-            const date = new Date(dateString);
-            return date.toLocaleDateString('tr-TR');
-        }
-
-        function editEmployee(index) {
-            const employee = appState.currentEmployees[index];
-            if (!employee) return;
+                </tr>
+                <tr>
+                    <th>Eğitim durumu</th>
+                    <td><input type="text" class="form-control form-control-sm" value="Üniversite"></td>
+                </tr>
+                <tr>
+                    <th>Medeni durumu</th>
+                    <td>
+                        <select class="form-select form-select-sm">
+                            <option value="">Seçiniz</option>
+                            <option value="single">Bekar</option>
+                            <option value="married" selected>Evli</option>
+                            <option value="divorced">Boşanmış</option>
+                            <option value="widowed">Dul</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Çocuk sayısı</th>
+                    <td><input type="number" class="form-control form-control-sm" value="2"></td>
+                </tr>
+                <tr>
+                    <th>Ev Adresi</th>
+                    <td><input type="text" class="form-control form-control-sm" value="Örnek Mah. Test Cad. No: 12 İstanbul"></td>
+                </tr>
+                <tr>
+                    <th>Tel No.</th>
+                    <td><input type="tel" class="form-control form-control-sm" value="0555 123 45 67"></td>
+                </tr>
+                <tr>
+                    <th>Mesleği</th>
+                    <td><input type="text" class="form-control form-control-sm" value="Mühendis"></td>
+                </tr>
+                <tr>
+                    <th>Yaptığı iş</th>
+                    <td><textarea class="form-control form-control-sm" rows="2">Proje yönetimi, teknik analiz ve raporlama</textarea></td>
+                </tr>
+                <tr>
+                    <th>Çalıştığı bölüm</th>
+                    <td><input type="text" class="form-control form-control-sm" value="AR-GE Departmanı"></td>
+                </tr>
+            </table>
             
-            appState.isEditingEmployee = true;
-            appState.currentEmployeeIndex = index;
+            <!-- Tıbbi Anamnez -->
+            <div class="section-title">TIBBİ ANAMNEZ</div>
             
-            document.getElementById('employeeModalTitle').textContent = 'Çalışan Düzenle';
-            document.getElementById('employeeNameInput').value = employee.name || '';
-            document.getElementById('employeeTcknInput').value = employee.tckn || '';
-            document.getElementById('employeeExamDateInput').value = employee.examDate ? new Date(employee.examDate).toISOString().split('T')[0] : '';
+            <div class="sub-section">
+                <p><strong>1. Aşağıdaki yakınmalardan herhangi birini yaşadınız mı?</strong></p>
+                <table>
+                    <tr>
+                        <td width="70%">- Balgamlı öksürük</td>
+                        <td class="text-center"><input type="checkbox" class="form-check-input"> Hayır</td>
+                        <td class="text-center"><input type="checkbox" class="form-check-input"> Evet</td>
+                    </tr>
+                    <tr>
+                        <td>- Nefes darlığı</td>
+                        <td class="text-center"><input type="checkbox" class="form-check-input"> Hayır</td>
+                        <td class="text-center"><input type="checkbox" class="form-check-input"> Evet</td>
+                    </tr>
+                    <tr>
+                        <td>- Göğüs ağrısı</td>
+                        <td class="text-center"><input type="checkbox" class="form-check-input"> Hayır</td>
+                        <td class="text-center"><input type="checkbox" class="form-check-input"> Evet</td>
+                    </tr>
+                    <tr>
+                        <td>- Çarpıntı</td>
+                        <td class="text-center"><input type="checkbox" class="form-check-input"> Hayır</td>
+                        <td class="text-center"><input type="checkbox" class="form-check-input"> Evet</td>
+                    </tr>
+                    <tr>
+                        <td>- Sırt ağrısı</td>
+                        <td class="text-center"><input type="checkbox" class="form-check-input"> Hayır</td>
+                        <td class="text-center"><input type="checkbox" class="form-check-input"> Evet</td>
+                    </tr>
+                    <tr>
+                        <td>- İshal veya kabızlık</td>
+                        <td class="text-center"><input type="checkbox" class="form-check-input"> Hayır</td>
+                        <td class="text-center"><input type="checkbox" class="form-check-input"> Evet</td>
+                    </tr>
+                    <tr>
+                        <td>- Eklemlerde ağrı</td>
+                        <td class="text-center"><input type="checkbox" class="form-check-input"> Hayır</td>
+                        <td class="text-center"><input type="checkbox" class="form-check-input" checked> Evet</td>
+                    </tr>
+                    <tr>
+                        <td>- Diğer (belirtiniz)</td>
+                        <td class="text-center"><input type="checkbox" class="form-check-input"> Hayır</td>
+                        <td class="text-center"><input type="checkbox" class="form-check-input"> Evet</td>
+                    </tr>
+                </table>
+            </div>
             
-            const employeeModal = new bootstrap.Modal(document.getElementById('employeeModal'));
-            employeeModal.show();
-        }
-
-        // EK-2 Formu (DÜZELTİLMİŞ)
-        function showEk2Modal(employeeIndex) {
-            const employee = appState.currentEmployees[employeeIndex];
-            if (!employee) {
-                console.error('Çalışan bulunamadı');
-                return;
-            }
+            <div class="sub-section">
+                <p><strong>2. Aşağıdaki hastalıklardan herhangi birini geçirdiniz mi?</strong></p>
+                <table>
+                    <tr>
+                        <td width="70%">- Kalp hastalığı</td>
+                        <td class="text-center"><input type="checkbox" class="form-check-input"> Hayır</td>
+                        <td class="text-center"><input type="checkbox" class="form-check-input"> Evet</td>
+                    </tr>
+                    <tr>
+                        <td>- Şeker hastalığı</td>
+                        <td class="text-center"><input type="checkbox" class="form-check-input" checked> Hayır</td>
+                        <td class="text-center"><input type="checkbox" class="form-check-input"> Evet</td>
+                    </tr>
+                    <tr>
+                        <td>- Böbrek rahatsızlığı</td>
+                        <td class="text-center"><input type="checkbox" class="form-check-input"> Hayır</td>
+                        <td class="text-center"><input type="checkbox" class="form-check-input"> Evet</td>
+                    </tr>
+                    <tr>
+                        <td>- Sarılık</td>
+                        <td class="text-center"><input type="checkbox" class="form-check-input"> Hayır</td>
+                        <td class="text-center"><input type="checkbox" class="form-check-input"> Evet</td>
+                    </tr>
+                    <tr>
+                        <td>- Mide veya on iki parmak ülseri</td>
+                        <td class="text-center"><input type="checkbox" class="form-check-input"> Hayır</td>
+                        <td class="text-center"><input type="checkbox" class="form-check-input"> Evet</td>
+                    </tr>
+                    <tr>
+                        <td>- İşitme kaybı</td>
+                        <td class="text-center"><input type="checkbox" class="form-check-input"> Hayır</td>
+                        <td class="text-center"><input type="checkbox" class="form-check-input"> Evet</td>
+                    </tr>
+                    <tr>
+                        <td>- Görme bozukluğu</td>
+                        <td class="text-center"><input type="checkbox" class="form-check-input" checked> Hayır</td>
+                        <td class="text-center"><input type="checkbox" class="form-check-input"> Evet</td>
+                    </tr>
+                    <tr>
+                        <td>- Sinir sistemi hastalığı</td>
+                        <td class="text-center"><input type="checkbox" class="form-check-input"> Hayır</td>
+                        <td class="text-center"><input type="checkbox" class="form-check-input"> Evet</td>
+                    </tr>
+                    <tr>
+                        <td>- Deri hastalığı</td>
+                        <td class="text-center"><input type="checkbox" class="form-check-input"> Hayır</td>
+                        <td class="text-center"><input type="checkbox" class="form-check-input"> Evet</td>
+                    </tr>
+                    <tr>
+                        <td>- Besin zehirlenmesi</td>
+                        <td class="text-center"><input type="checkbox" class="form-check-input"> Hayır</td>
+                        <td class="text-center"><input type="checkbox" class="form-check-input"> Evet</td>
+                    </tr>
+                    <tr>
+                        <td>- Diğer (belirtiniz)</td>
+                        <td class="text-center"><input type="checkbox" class="form-check-input"> Hayır</td>
+                        <td class="text-center"><input type="checkbox" class="form-check-input"> Evet</td>
+                    </tr>
+                </table>
+            </div>
             
-            appState.currentEmployeeIndex = employeeIndex;
+            <!-- Ek Tıbbi Sorular -->
+            <div class="sub-section">
+                <table>
+                    <tr>
+                        <td width="70%"><strong>3. Hastanede yattınız mı?</strong></td>
+                        <td class="text-center"><input type="checkbox" class="form-check-input" checked> Hayır</td>
+                        <td class="text-center"><input type="checkbox" class="form-check-input"> Evet, ise tanı?</td>
+                        <td><input type="text" class="form-control form-control-sm"></td>
+                    </tr>
+                    <tr>
+                        <td><strong>4. Ameliyat geçirdiniz mi?</strong></td>
+                        <td class="text-center"><input type="checkbox" class="form-check-input"> Hayır</td>
+                        <td class="text-center"><input type="checkbox" class="form-check-input" checked> Evet, ise neden?</td>
+                        <td><input type="text" class="form-control form-control-sm" value="Apendisit ameliyatı"></td>
+                    </tr>
+                    <tr>
+                        <td><strong>5. İş kazası geçirdiniz mi?</strong></td>
+                        <td class="text-center"><input type="checkbox" class="form-check-input" checked> Hayır</td>
+                        <td class="text-center"><input type="checkbox" class="form-check-input"> Evet, ise ne oldu?</td>
+                        <td><input type="text" class="form-control form-control-sm"></td>
+                    </tr>
+                    <tr>
+                        <td><strong>6. Meslek Hastalıkları şüphesi ile ilgili tetkik ve muayeneye tabi tutuldunuz mu?</strong></td>
+                        <td class="text-center"><input type="checkbox" class="form-check-input" checked> Hayır</td>
+                        <td class="text-center"><input type="checkbox" class="form-check-input"> Evet, ise sonuç?</td>
+                        <td><input type="text" class="form-control form-control-sm"></td>
+                    </tr>
+                    <tr>
+                        <td><strong>7. Maluliyet aldınız mı?</strong></td>
+                        <td class="text-center"><input type="checkbox" class="form-check-input" checked> Hayır</td>
+                        <td class="text-center"><input type="checkbox" class="form-check-input"> Evet, ise nedir ve oranı?</td>
+                        <td><input type="text" class="form-control form-control-sm"></td>
+                    </tr>
+                    <tr>
+                        <td><strong>8. Şu anda herhangi bir tedavi görüyor musunuz?</strong></td>
+                        <td class="text-center"><input type="checkbox" class="form-check-input" checked> Hayır</td>
+                        <td class="text-center"><input type="checkbox" class="form-check-input"> Evet, ise nedir?</td>
+                        <td><input type="text" class="form-control form-control-sm"></td>
+                    </tr>
+                </table>
+            </div>
             
-            const today = new Date();
-            const formattedToday = today.toISOString().split('T')[0];
-            
-            const nextExamDate = new Date();
-            nextExamDate.setFullYear(nextExamDate.getFullYear() + 5);
-            const formattedNextExamDate = nextExamDate.toISOString().split('T')[0];
-            
-            const doctorInfo = JSON.parse(localStorage.getItem('doctorInfo')) || {};
-            
-            const ek2Content = document.getElementById('ek2FormContent');
-            ek2Content.innerHTML = `
-                <div class="ek2-form">
-                    <h4 class="text-center mb-4">EK-2 İŞE GİRİŞ/PERİYODİK MUAYENE FORMU</h4>
+            <!-- Sigara ve Alkol -->
+            <div class="sub-section">
+                <table>
+                    <tr>
+                        <td width="25%"><strong>9. Sigara içiyor musunuz?</strong></td>
+                        <td width="15%" class="text-center"><input type="checkbox" class="form-check-input"> Hayır</td>
+                        <td width="60%"></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td class="text-center"><input type="checkbox" class="form-check-input" checked> Bırakmış</td>
+                        <td>
+                            <div class="form-group-row">
+                                <span>..........ay/yıl önce</span>
+                                <input type="text" class="form-control form-control-sm" value="3 yıl" style="width: 80px;">
+                                <span>.............ay/yıl içmiş</span>
+                                <input type="text" class="form-control form-control-sm" value="15 yıl" style="width: 80px;">
+                                <span>...........adet/gün içmiş</span>
+                                <input type="text" class="form-control form-control-sm" value="10 adet" style="width: 80px;">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td class="text-center"><input type="checkbox" class="form-check-input"> Evet</td>
+                        <td>
+                            <div class="form-group-row">
+                                <span>..........yıldır</span>
+                                <input type="text" class="form-control form-control-sm" style="width: 80px;">
+                                <span>..............adet/gün</span>
+                                <input type="text" class="form-control form-control-sm" style="width: 80px;">
+                            </div>
+                        </td>
+                    </tr>
                     
-                    <!-- İşyeri Bilgileri -->
-                    <div class="mb-4">
-                        <h5 class="section-title">İŞYERİNİN</h5>
-                        <table>
-                            <tr>
-                                <th width="20%">Ünvanı</th>
-                                <td><input type="text" class="form-control" value="${appState.currentWorkplace?.name || ''}"></td>
-                            </tr>
-                            <tr>
-                                <th>SGK Sicil No.</th>
-                                <td><input type="text" class="form-control"></td>
-                            </tr>
-                            <tr>
-                                <th>Adresi</th>
-                                <td><input type="text" class="form-control" value="${appState.currentWorkplace?.address || ''}"></td>
-                            </tr>
-                            <tr>
-                                <th>Tel ve Faks No</th>
-                                <td><input type="text" class="form-control"></td>
-                            </tr>
-                            <tr>
-                                <th>E-Posta</th>
-                                <td><input type="email" class="form-control"></td>
-                            </tr>
-                        </table>
-                    </div>
-
-                    <!-- Çalışan Bilgileri -->
-                    <div class="mb-4">
-                        <h5 class="section-title">ÇALIŞANIN</h5>
-                        <table>
-                            <tr>
-                                <th width="20%">Adı Soyadı</th>
-                                <td><input type="text" class="form-control" id="ek2Name" value="${employee.name || ''}"></td>
-                            </tr>
-                            <tr>
-                                <th>TC Kimlik No</th>
-                                <td><input type="text" class="form-control" id="ek2Tckn" value="${employee.tckn || ''}"></td>
-                            </tr>
-                            <tr>
-                                <th>Doğum Yeri ve Tarihi</th>
-                                <td><input type="text" class="form-control"></td>
-                            </tr>
-                            <tr>
-                                <th>Cinsiyeti</th>
-                                <td>
-                                    <select class="form-select">
-                                        <option value="">Seçiniz</option>
-                                        <option value="male">Erkek</option>
-                                        <option value="female">Kadın</option>
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>Eğitim durumu</th>
-                                <td><input type="text" class="form-control"></td>
-                            </tr>
-                            <tr>
-                                <th>Medeni durumu</th>
-                                <td>
-                                    <select class="form-select">
-                                        <option value="">Seçiniz</option>
-                                        <option value="single">Bekar</option>
-                                        <option value="married">Evli</option>
-                                        <option value="divorced">Boşanmış</option>
-                                        <option value="widowed">Dul</option>
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>Çocuk sayısı</th>
-                                <td><input type="number" class="form-control"></td>
-                            </tr>
-                            <tr>
-                                <th>Ev Adresi</th>
-                                <td><input type="text" class="form-control"></td>
-                            </tr>
-                            <tr>
-                                <th>Tel No.</th>
-                                <td><input type="tel" class="form-control"></td>
-                            </tr>
-                            <tr>
-                                <th>Mesleği</th>
-                                <td><input type="text" class="form-control"></td>
-                            </tr>
-                            <tr>
-                                <th>Yaptığı iş</th>
-                                <td><textarea class="form-control" rows="2"></textarea></td>
-                            </tr>
-                            <tr>
-                                <th>Çalıştığı bölüm</th>
-                                <td><input type="text" class="form-control"></td>
-                            </tr>
-                        </table>
-                    </div>
-
-                    <!-- Önceki İşyerleri -->
-                    <div class="mb-4">
-                        <h5 class="section-title">Daha önce çalıştığı yerler</h5>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>İşkolu</th>
-                                    <th>Yaptığı iş</th>
-                                    <th>Giriş-çıkış tarihi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><input type="text" class="form-control"></td>
-                                    <td><input type="text" class="form-control"></td>
-                                    <td><input type="text" class="form-control"></td>
-                                </tr>
-                                <tr>
-                                    <td><input type="text" class="form-control"></td>
-                                    <td><input type="text" class="form-control"></td>
-                                    <td><input type="text" class="form-control"></td>
-                                </tr>
-                                <tr>
-                                    <td><input type="text" class="form-control"></td>
-                                    <td><input type="text" class="form-control"></td>
-                                    <td><input type="text" class="form-control"></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <!-- Tıbbi Bilgiler -->
-                    <div class="mb-4">
-                        <h5 class="section-title">TIBBİ ANAMNEZ</h5>
-                        <div class="sub-section">
-                            <p>1. Aşağıdaki yakınmalardan herhangi birini yaşadınız mı?</p>
-                            <table>
-                                <tr>
-                                    <td width="80%">- Balgamlı öksürük</td>
-                                    <td><input type="checkbox" class="form-check-input"> Hayır</td>
-                                    <td><input type="checkbox" class="form-check-input"> Evet</td>
-                                </tr>
-                                <tr>
-                                    <td>- Nefes darlığı</td>
-                                    <td><input type="checkbox" class="form-check-input"> Hayır</td>
-                                    <td><input type="checkbox" class="form-check-input"> Evet</td>
-                                </tr>
-                                <tr>
-                                    <td>- Göğüs ağrısı</td>
-                                    <td><input type="checkbox" class="form-check-input"> Hayır</td>
-                                    <td><input type="checkbox" class="form-check-input"> Evet</td>
-                                </tr>
-                                <tr>
-                                    <td>- Çarpıntı</td>
-                                    <td><input type="checkbox" class="form-check-input"> Hayır</td>
-                                    <td><input type="checkbox" class="form-check-input"> Evet</td>
-                                </tr>
-                                <tr>
-                                    <td>- Sırt ağrısı</td>
-                                    <td><input type="checkbox" class="form-check-input"> Hayır</td>
-                                    <td><input type="checkbox" class="form-check-input"> Evet</td>
-                                </tr>
-                                <tr>
-                                    <td>- İshal veya kabızlık</td>
-                                    <td><input type="checkbox" class="form-check-input"> Hayır</td>
-                                    <td><input type="checkbox" class="form-check-input"> Evet</td>
-                                </tr>
-                                <tr>
-                                    <td>- Eklemlerde ağrı</td>
-                                    <td><input type="checkbox" class="form-check-input"> Hayır</td>
-                                    <td><input type="checkbox" class="form-check-input"> Evet</td>
-                                </tr>
-                                <tr>
-                                    <td>- Diğer (belirtiniz)</td>
-                                    <td><input type="checkbox" class="form-check-input"> Hayır</td>
-                                    <td><input type="checkbox" class="form-check-input"> Evet</td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-
-                    <!-- Doktor Bilgileri ve İmza -->
-                    <div class="signature-box">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label class="form-label">Tarih</label>
-                                    <input type="date" class="form-control" value="${formattedToday}">
-                                </div>
+                    <tr>
+                        <td><strong>10. Alkol alıyor musunuz?</strong></td>
+                        <td class="text-center"><input type="checkbox" class="form-check-input" checked> Hayır</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td class="text-center"><input type="checkbox" class="form-check-input"> Bırakmış</td>
+                        <td>
+                            <div class="form-group-row">
+                                <span>..............yıl önce</span>
+                                <input type="text" class="form-control form-control-sm" style="width: 80px;">
+                                <span>..............yıl içmiş</span>
+                                <input type="text" class="form-control form-control-sm" style="width: 80px;">
+                                <span>................sıklıkla içmiş</span>
+                                <input type="text" class="form-control form-control-sm" style="width: 80px;">
                             </div>
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label class="form-label">İmza</label>
-                                    <div class="signature-line mb-2"></div>
-                                    <div class="text-center">
-                                        <p class="mb-0">${doctorInfo.name || 'Doktor Adı Soyadı'}</p>
-                                        <p class="small text-muted">Diploma No: ${doctorInfo.diplomaNo || ''} - Tarih: ${doctorInfo.diplomaDate || ''}</p>
-                                        <p class="small text-muted">Sertifika No: ${doctorInfo.certificateNo || ''} - Tarih: ${doctorInfo.certificateDate || ''}</p>
-                                    </div>
-                                </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td class="text-center"><input type="checkbox" class="form-check-input"> Evet</td>
+                        <td>
+                            <div class="form-group-row">
+                                <span>..........yıldır</span>
+                                <input type="text" class="form-control form-control-sm" style="width: 80px;">
+                                <span>..............sıklıkla</span>
+                                <input type="text" class="form-control form-control-sm" style="width: 80px;">
                             </div>
-                        </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            
+            <!-- Fizik Muayene Sonuçları -->
+            <div class="section-title">FİZİK MUAYENE SONUÇLARI</div>
+            <div class="sub-section">
+                <table>
+                    <tr>
+                        <td width="25%"><strong>a) Duyu organları</strong></td>
+                        <td><textarea class="form-control form-control-sm" rows="2">Normal</textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="pl-4">- Göz</td>
+                        <td><textarea class="form-control form-control-sm" rows="2">Görme kusuru var, gözlük kullanıyor</textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="pl-4">- Kulak-Burun-Boğaz</td>
+                        <td><textarea class="form-control form-control-sm" rows="2">Normal</textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="pl-4">- Deri</td>
+                        <td><textarea class="form-control form-control-sm" rows="2">Normal</textarea></td>
+                    </tr>
+                    <tr>
+                        <td><strong>b) Kardiyovasküler sistem muayenesi</strong></td>
+                        <td><textarea class="form-control form-control-sm" rows="2">Normal</textarea></td>
+                    </tr>
+                    <tr>
+                        <td><strong>c) Solunum sistemi muayenesi</strong></td>
+                        <td><textarea class="form-control form-control-sm" rows="2">Normal</textarea></td>
+                    </tr>
+                    <tr>
+                        <td><strong>d) Sindirim sistemi muayenesi</strong></td>
+                        <td><textarea class="form-control form-control-sm" rows="2">Normal</textarea></td>
+                    </tr>
+                    <tr>
+                        <td><strong>e) Ürogenital sistem muayenesi</strong></td>
+                        <td><textarea class="form-control form-control-sm" rows="2">Normal</textarea></td>
+                    </tr>
+                    <tr>
+                        <td><strong>f) Kas-iskelet sistemi muayenesi</strong></td>
+                        <td><textarea class="form-control form-control-sm" rows="2">Hafif bel ağrısı mevcut</textarea></td>
+                    </tr>
+                    <tr>
+                        <td><strong>g) Nörolojik muayene</strong></td>
+                        <td><textarea class="form-control form-control-sm" rows="2">Normal</textarea></td>
+                    </tr>
+                    <tr>
+                        <td><strong>ğ) Psikiyatrik muayene</strong></td>
+                        <td><textarea class="form-control form-control-sm" rows="2">Normal</textarea></td>
+                    </tr>
+                    <tr>
+                        <td><strong>h) Diğer</strong></td>
+                        <td><textarea class="form-control form-control-sm" rows="2"></textarea></td>
+                    </tr>
+                </table>
+                
+                <div class="mt-3">
+                    <div class="form-group-row">
+                        <label>- TA (Tansiyon) :</label>
+                        <input type="text" class="form-control form-control-sm" value="120" style="width: 60px;">
+                        <span>/</span>
+                        <input type="text" class="form-control form-control-sm" value="80" style="width: 60px;">
+                        <span>mm-Hg</span>
+                    </div>
+                    
+                    <div class="form-group-row">
+                        <label>- NB (Nabız) :</label>
+                        <input type="text" class="form-control form-control-sm" value="72" style="width: 60px;">
+                        <span>/ dk.</span>
+                    </div>
+                    
+                    <div class="form-group-row">
+                        <label>- Boy:</label>
+                        <input type="text" class="form-control form-control-sm" value="178" style="width: 80px;">
+                        <span>cm - Kilo:</span>
+                        <input type="text" class="form-control form-control-sm" value="82" style="width: 80px;">
+                        <span>kg - Vücut Kitle İndeksi :</span>
+                        <input type="text" class="form-control form-control-sm" value="25.9" style="width: 80px;">
                     </div>
                 </div>
-            `;
+            </div>
             
-            const ek2Modal = new bootstrap.Modal(document.getElementById('ek2Modal'));
-            ek2Modal.show();
-        }
-
-        // Dosya Yükleme Modalı (DÜZELTİLMİŞ)
-        async function showFileUploadModal(employeeIndex) {
-            if (employeeIndex === undefined || employeeIndex === null) {
-                console.error('Geçersiz çalışan indeksi');
-                return;
-            }
+            <!-- Laboratuvar Bulguları -->
+            <div class="section-title">LABORATUVAR BULGULARI</div>
+            <div class="sub-section">
+                <table>
+                    <tr>
+                        <td width="25%"><strong>a) Biyolojik analizler</strong></td>
+                        <td><textarea class="form-control form-control-sm" rows="2"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="pl-4">- Kan</td>
+                        <td><textarea class="form-control form-control-sm" rows="2">Hemogram: Normal, Glukoz: 95 mg/dL</textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="pl-4">- İdrar</td>
+                        <td><textarea class="form-control form-control-sm" rows="2">Normal</textarea></td>
+                    </tr>
+                    <tr>
+                        <td><strong>b) Radyolojik analizler</strong></td>
+                        <td><textarea class="form-control form-control-sm" rows="2">Akciğer grafisi: Normal</textarea></td>
+                    </tr>
+                    <tr>
+                        <td><strong>c) Fizyolojik analizler</strong></td>
+                        <td><textarea class="form-control form-control-sm" rows="2"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="pl-4">- Odyometre</td>
+                        <td><textarea class="form-control form-control-sm" rows="2">Normal işitme</textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="pl-4">- SFT (Solunum Fonksiyon Testi)</td>
+                        <td><textarea class="form-control form-control-sm" rows="2">Normal</textarea></td>
+                    </tr>
+                    <tr>
+                        <td><strong>d) Psikolojik testler</strong></td>
+                        <td><textarea class="form-control form-control-sm" rows="2">Normal</textarea></td>
+                    </tr>
+                    <tr>
+                        <td><strong>e) Diğer</strong></td>
+                        <td><textarea class="form-control form-control-sm" rows="2"></textarea></td>
+                    </tr>
+                </table>
+            </div>
             
-            const employee = appState.currentEmployees[employeeIndex];
-            if (!employee) {
-                console.error('Çalışan bulunamadı');
-                return;
-            }
-            
-            appState.currentFileUploadIndex = employeeIndex;
-            document.getElementById('fileInput').value = '';
-            
-            // Yüklenen dosyaları listele
-            const uploadedFilesList = document.getElementById('uploadedFilesList');
-            uploadedFilesList.innerHTML = '';
-            
-            try {
-                const files = await appState.db.getFilesByEmployee(employee.id);
-                if (files.length > 0) {
-                    uploadedFilesList.innerHTML = '<h6>Yüklenen Dosyalar:</h6>';
-                    files.forEach(file => {
-                        const fileItem = document.createElement('div');
-                        fileItem.className = 'd-flex justify-content-between align-items-center mb-2';
-                        fileItem.innerHTML = `
-                            <span>${file.fileName}</span>
-                            <button class="btn btn-sm btn-danger delete-file-btn" data-id="${file.id}">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        `;
-                        uploadedFilesList.appendChild(fileItem);
-                        
-                        fileItem.querySelector('.delete-file-btn').addEventListener('click', async (e) => {
-                            e.stopPropagation();
-                            const fileId = e.target.closest('button').getAttribute('data-id');
-                            if (confirm('Bu dosyayı silmek istediğinize emin misiniz?')) {
-                                try {
-                                    await appState.db.deleteFile(fileId);
-                                    await showFileUploadModal(employeeIndex); // Modalı yenile
-                                } catch (error) {
-                                    console.error('Dosya silme hatası:', error);
-                                    alert('Dosya silinirken hata oluştu');
-                                }
-                            }
-                        });
-                    });
-                }
-            } catch (error) {
-                console.error('Dosyalar yüklenirken hata:', error);
-            }
-            
-            const fileUploadModal = new bootstrap.Modal(document.getElementById('fileUploadModal'));
-            fileUploadModal.show();
-        }
-
-        // Doktor Bilgileri İşlemleri
-        function initDoctorInfo() {
-            const doctorInfoBtn = document.getElementById('doctorInfoBtn');
-            if (doctorInfoBtn) {
-                doctorInfoBtn.addEventListener('click', () => {
-                    loadDoctorInfo();
-                    const doctorInfoModal = new bootstrap.Modal(document.getElementById('doctorInfoModal'));
-                    doctorInfoModal.show();
-                });
-            }
-
-            const saveDoctorInfoBtn = document.getElementById('saveDoctorInfoBtn');
-            if (saveDoctorInfoBtn) {
-                saveDoctorInfoBtn.addEventListener('click', saveDoctorInfo);
-            }
-        }
-
-        function loadDoctorInfo() {
-            const doctorInfo = JSON.parse(localStorage.getItem('doctorInfo')) || {};
-            document.getElementById('doctorNameInput').value = doctorInfo.name || '';
-            document.getElementById('diplomaNoInput').value = doctorInfo.diplomaNo || '';
-            document.getElementById('diplomaDateInput').value = doctorInfo.diplomaDate || '';
-            document.getElementById('certificateNoInput').value = doctorInfo.certificateNo || '';
-            document.getElementById('certificateDateInput').value = doctorInfo.certificateDate || '';
-        }
-
-        function saveDoctorInfo() {
-            const doctorInfo = {
-                name: document.getElementById('doctorNameInput').value,
-                diplomaNo: document.getElementById('diplomaNoInput').value,
-                diplomaDate: document.getElementById('diplomaDateInput').value,
-                certificateNo: document.getElementById('certificateNoInput').value,
-                certificateDate: document.getElementById('certificateDateInput').value
-            };
-            localStorage.setItem('doctorInfo', JSON.stringify(doctorInfo));
-            alert('Doktor bilgileri kaydedildi');
-        }
-
-        // İşyeri ve Çalışan Eylemlerini Başlatma
-        function initWorkplaceActions() {
-            const addWorkplaceBtn = document.getElementById('addWorkplaceBtn');
-            if (addWorkplaceBtn) {
-                addWorkplaceBtn.addEventListener('click', () => {
-                    appState.isEditingWorkplace = false;
-                    appState.currentWorkplace = null;
-                    document.getElementById('modalTitle').textContent = 'Yeni İşyeri';
-                    document.getElementById('workplaceNameInput').value = '';
-                    document.getElementById('workplaceAddressInput').value = '';
-                    const workplaceModal = new bootstrap.Modal(document.getElementById('workplaceModal'));
-                    workplaceModal.show();
-                });
-            }
-
-            const saveWorkplaceBtn = document.getElementById('saveWorkplaceBtn');
-            if (saveWorkplaceBtn) {
-                saveWorkplaceBtn.addEventListener('click', async () => {
-                    const name = document.getElementById('workplaceNameInput').value.trim();
-                    const address = document.getElementById('workplaceAddressInput').value.trim();
-
-                    if (!name) {
-                        showError('İşyeri adı gereklidir');
-                        return;
-                    }
-
-                    try {
-                        if (appState.isEditingWorkplace && appState.currentWorkplace) {
-                            const workplace = {
-                                ...appState.currentWorkplace,
-                                name,
-                                address
-                            };
-                            await appState.db.updateWorkplace(workplace);
-                        } else {
-                            const workplace = {
-                                id: Date.now().toString(),
-                                name,
-                                address,
-                                createdAt: new Date().toISOString()
-                            };
-                            await appState.db.addWorkplace(workplace);
-                        }
-                        
-                        await loadWorkplaces();
-                        bootstrap.Modal.getInstance(document.getElementById('workplaceModal')).hide();
-                    } catch (error) {
-                        console.error('İşyeri ekleme/düzenleme hatası:', error);
-                        showError('İşyeri işlemi sırasında hata oluştu');
-                    }
-                });
-            }
-
-            const addEmployeeBtn = document.getElementById('addEmployeeBtn');
-            if (addEmployeeBtn) {
-                addEmployeeBtn.addEventListener('click', () => {
-                    if (!appState.currentWorkplace) {
-                        showError('Önce bir işyeri seçmelisiniz');
-                        return;
-                    }
-                    
-                    appState.isEditingEmployee = false;
-                    appState.currentEmployeeIndex = null;
-                    document.getElementById('employeeModalTitle').textContent = 'Yeni Çalışan';
-                    document.getElementById('employeeNameInput').value = '';
-                    document.getElementById('employeeTcknInput').value = '';
-                    document.getElementById('employeeExamDateInput').value = '';
-                    
-                    const employeeModal = new bootstrap.Modal(document.getElementById('employeeModal'));
-                    employeeModal.show();
-                });
-            }
-
-            const saveEmployeeBtn = document.getElementById('saveEmployeeBtn');
-            if (saveEmployeeBtn) {
-                saveEmployeeBtn.addEventListener('click', async () => {
-                    const name = document.getElementById('employeeNameInput').value.trim();
-                    const tckn = document.getElementById('employeeTcknInput').value.trim();
-                    const examDate = document.getElementById('employeeExamDateInput').value;
-
-                    if (!name || !tckn) {
-                        showError('Ad soyad ve TCKN gereklidir');
-                        return;
-                    }
-
-                    try {
-                        let nextExamDate = '';
-                        if (examDate) {
-                            const nextDate = new Date(examDate);
-                            nextDate.setFullYear(nextDate.getFullYear() + 5);
-                            nextExamDate = nextDate.toISOString();
-                        }
-
-                        if (appState.isEditingEmployee && appState.currentEmployeeIndex !== null) {
-                            const employee = appState.currentEmployees[appState.currentEmployeeIndex];
-                            const updatedEmployee = {
-                                ...employee,
-                                name,
-                                tckn,
-                                examDate: examDate ? new Date(examDate).toISOString() : '',
-                                nextExamDate
-                            };
-                            await appState.db.updateEmployee(updatedEmployee);
-                        } else {
-                            const employee = {
-                                id: Date.now().toString(),
-                                workplaceId: appState.currentWorkplace.id,
-                                name,
-                                tckn,
-                                examDate: examDate ? new Date(examDate).toISOString() : '',
-                                nextExamDate,
-                                createdAt: new Date().toISOString()
-                            };
-                            await appState.db.addEmployee(employee);
-                        }
-                        
-                        await loadEmployees(appState.currentWorkplace.id);
-                        bootstrap.Modal.getInstance(document.getElementById('employeeModal')).hide();
-                    } catch (error) {
-                        console.error('Çalışan ekleme/düzenleme hatası:', error);
-                        showError('Çalışan işlemi sırasında hata oluştu');
-                    }
-                });
-            }
-
-            const saveEk2Btn = document.getElementById('saveEk2Btn');
-            if (saveEk2Btn) {
-                saveEk2Btn.addEventListener('click', async () => {
-                    const employeeIndex = appState.currentEmployeeIndex;
-                    if (employeeIndex === null || !appState.currentEmployees[employeeIndex]) return;
-
-                    const name = document.getElementById('ek2Name').value.trim();
-                    const tckn = document.getElementById('ek2Tckn').value.trim();
-
-                    try {
-                        const employee = {
-                            ...appState.currentEmployees[employeeIndex],
-                            name,
-                            tckn
-                        };
-
-                        await appState.db.updateEmployee(employee);
-                        await loadEmployees(appState.currentWorkplace.id);
-                        bootstrap.Modal.getInstance(document.getElementById('ek2Modal')).hide();
-                    } catch (error) {
-                        console.error('EK-2 kaydetme hatası:', error);
-                        showError('EK-2 kaydedilirken hata oluştu');
-                    }
-                });
-            }
-        }
-
-        function initEmployeeActions() {
-            const importExcelBtn = document.getElementById('importExcelBtn');
-            if (importExcelBtn) {
-                importExcelBtn.addEventListener('click', importFromExcel);
-            }
-
-            const exportExcelBtn = document.getElementById('exportExcelBtn');
-            if (exportExcelBtn) {
-                exportExcelBtn.addEventListener('click', exportToExcel);
-            }
-
-            const uploadFileBtn = document.getElementById('uploadFileBtn');
-            if (uploadFileBtn) {
-                uploadFileBtn.addEventListener('click', uploadFile);
-            }
-
-            const printEk2Btn = document.getElementById('printEk2Btn');
-            if (printEk2Btn) {
-                printEk2Btn.addEventListener('click', () => {
-                    window.print();
-                });
-            }
-        }
-
-        // Excel İşlemleri
-        function exportToExcel() {
-            try {
-                if (!appState.currentWorkplace || !appState.currentEmployees.length) {
-                    alert('Dışa aktarılacak veri bulunamadı');
-                    return;
-                }
-
-                const data = [
-                    ['S.No', 'Ad Soyad', 'TCKN', 'Muayene Tarihi', 'Sonraki Muayene Tarihi'],
-                    ...appState.currentEmployees.map((emp, index) => [
-                        index + 1,
-                        emp.name || '',
-                        emp.tckn || '',
-                        emp.examDate ? formatDate(emp.examDate) : '',
-                        emp.nextExamDate ? formatDate(emp.nextExamDate) : ''
-                    ])
-                ];
-
-                const wb = XLSX.utils.book_new();
-                const ws = XLSX.utils.aoa_to_sheet(data);
-                XLSX.utils.book_append_sheet(wb, ws, 'Çalışan Listesi');
-
-                XLSX.writeFile(wb, `${appState.currentWorkplace.name}_Çalışan_Listesi.xlsx`);
-            } catch (error) {
-                console.error('Excel export hatası:', error);
-                alert('Excel dosyası oluşturulurken hata oluştu');
-            }
-        }
-
-        async function importFromExcel() {
-            try {
-                if (!appState.currentWorkplace) {
-                    alert('Lütfen önce bir işyeri seçin');
-                    return;
-                }
-
-                const fileInput = document.createElement('input');
-                fileInput.type = 'file';
-                fileInput.accept = '.xlsx,.xls,.csv';
+            <!-- Kanaat ve Sonuç -->
+            <div class="conclusion-section">
+                <h5 class="section-title">KANAAT VE SONUÇ *</h5>
                 
-                fileInput.onchange = async (e) => {
-                    const file = e.target.files[0];
-                    if (!file) return;
-                    
-                    const reader = new FileReader();
-                    reader.onload = async (event) => {
-                        try {
-                            const data = new Uint8Array(event.target.result);
-                            const workbook = XLSX.read(data, { type: 'array' });
-                            const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
-                            const jsonData = XLSX.utils.sheet_to_json(firstSheet);
-                            
-                            if (!jsonData.length) {
-                                alert('Excel dosyasında veri bulunamadı');
-                                return;
-                            }
-                            
-                            let importedCount = 0;
-                            const errors = [];
-                            
-                            for (const [i, row] of jsonData.entries()) {
-                                try {
-                                    const name = row['Ad Soyad'] || row['Adı Soyadı'] || row['Ad Soyadı'] || '';
-                                    const tckn = String(row['TCKN'] || row['TC Kimlik No'] || row['T.C. Kimlik No'] || '');
-                                    
-                                    if (!name || !tckn) {
-                                        errors.push(`Satır ${i+1}: Ad soyad veya TCKN eksik`);
-                                        continue;
-                                    }
-                                    
-                                    if (tckn.length !== 11 || isNaN(tckn)) {
-                                        errors.push(`Satır ${i+1}: Geçersiz TCKN (${tckn})`);
-                                        continue;
-                                    }
-                                    
-                                    let examDate = '';
-                                    if (row['Muayene Tarihi']) {
-                                        const date = new Date(row['Muayene Tarihi']);
-                                        if (!isNaN(date.getTime())) {
-                                            examDate = date.toISOString();
-                                        }
-                                    }
-                                    
-                                    let nextExamDate = '';
-                                    if (examDate) {
-                                        const nextDate = new Date(examDate);
-                                        nextDate.setFullYear(nextDate.getFullYear() + 5);
-                                        nextExamDate = nextDate.toISOString();
-                                    }
-                                    
-                                    const employee = {
-                                        id: Date.now().toString(),
-                                        workplaceId: appState.currentWorkplace.id,
-                                        name,
-                                        tckn,
-                                        examDate,
-                                        nextExamDate,
-                                        createdAt: new Date().toISOString()
-                                    };
-                                    
-                                    await appState.db.addEmployee(employee);
-                                    importedCount++;
-                                } catch (error) {
-                                    errors.push(`Satır ${i+1}: ${error.message}`);
-                                }
-                            }
-                            
-                            await loadEmployees(appState.currentWorkplace.id);
-                            
-                            let resultMessage = `${importedCount} çalışan başarıyla eklendi`;
-                            if (errors.length > 0) {
-                                resultMessage += `\n\nHatalar:\n${errors.join('\n')}`;
-                            }
-                            alert(resultMessage);
-                        } catch (error) {
-                            console.error('Excel import hatası:', error);
-                            alert('Excel dosyası okunurken hata oluştu: ' + error.message);
-                        }
-                    };
-                    
-                    reader.readAsArrayBuffer(file);
-                };
+                <div class="form-group-row">
+                    <label>1-</label>
+                    <textarea class="form-control" rows="2">Ofis ortamında bedenen ve ruhen çalışmaya elverişlidir.</textarea>
+                </div>
                 
-                fileInput.click();
-            } catch (error) {
-                console.error('Excel import hatası:', error);
-                alert('Excel import işlemi sırasında hata oluştu: ' + error.message);
+                <div class="form-group-row">
+                    <label>2-</label>
+                    <textarea class="form-control" rows="2">Bel desteği kullanması şartı ile çalışmaya elverişlidir.</textarea>
+                </div>
+                
+                <p class="footer-note mt-3">
+                    <strong>*</strong> Yapılan muayene sonucunda çalışanın gece veya vardiyalı çalışma koşullarında çalışıp çalışamayacağı ile vücut sağlığını ve bütünlüğünü tamamlayıcı uygun alet teçhizat vs... bulunması durumunda çalışan için bu koşullarla çalışmaya elverişli olup olmadığı kanaati belirtilecektir.
+                </p>
+                
+                <div class="text-right mt-4">
+                    <div class="form-group-row" style="justify-content: flex-end;">
+                        <span>... / ... / 20...</span>
+                        <input type="text" class="form-control form-control-sm" value="15" style="width: 40px;">
+                        <span>/</span>
+                        <input type="text" class="form-control form-control-sm" value="07" style="width: 40px;">
+                        <span>/</span>
+                        <input type="text" class="form-control form-control-sm" value="2023" style="width: 60px;">
+                    </div>
+                </div>
+                
+                <div class="signature-box mt-4">
+                    <div class="text-center">
+                        <div class="signature-line"></div>
+                        <p class="mb-0"><strong>İMZA</strong></p>
+                        <p class="mb-0">Dr. Mehmet Demir</p>
+                        <p class="small text-muted mb-0">Diploma Tarih ve No: 15.06.2010 / 12345</p>
+                        <p class="small text-muted mb-0">Diploma Tescil Tarih ve No: 20.07.2010 / 67890</p>
+                        <p class="small text-muted">İşyeri Hekimliği Belgesi Tarih ve No: 10.05.2015 / ABC123</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="print-controls no-print">
+            <button class="btn btn-primary" onclick="window.print()">
+                <i class="fas fa-print"></i> Formu Yazdır
+            </button>
+            <button class="btn btn-success" onclick="saveForm()">
+                <i class="fas fa-save"></i> Formu Kaydet
+            </button>
+            <button class="btn btn-secondary" onclick="resetForm()">
+                <i class="fas fa-redo"></i> Formu Sıfırla
+            </button>
+        </div>
+    </div>
+
+    <script>
+        function saveForm() {
+            alert('Form başarıyla kaydedildi!');
+            // Burada form verilerini kaydetme işlevselliği eklenecek
+        }
+        
+        function resetForm() {
+            if(confirm('Formdaki tüm verileri sıfırlamak istediğinize emin misiniz?')) {
+                document.querySelectorAll('input, textarea, select').forEach(element => {
+                    if(element.type !== 'button') {
+                        element.value = '';
+                    }
+                });
+                
+                document.querySelectorAll('.form-check-input').forEach(checkbox => {
+                    checkbox.checked = false;
+                });
+                
+                alert('Form sıfırlandı!');
             }
         }
-
-        // Dosya Yükleme (DÜZELTİLMİŞ)
-        async function uploadFile() {
-            const fileInput = document.getElementById('fileInput');
-            if (fileInput.files.length === 0) {
-                showError('Lütfen bir dosya seçin');
-                return;
-            }
-
-            const file = fileInput.files[0];
-            const employee = appState.currentEmployees[appState.currentFileUploadIndex];
-            
-            if (!employee) {
-                showError('Çalışan bulunamadı');
-                return;
-            }
-            
-            try {
-                const reader = new FileReader();
-                reader.onload = async (event) => {
-                    const fileData = event.target.result;
-                    const fileRecord = {
-                        id: Date.now().toString(),
-                        employeeId: employee.id,
-                        workplaceId: appState.currentWorkplace.id,
-                        fileName: file.name,
-                        fileType: file.type,
-                        data: fileData,
-                        uploadedAt: new Date().toISOString()
-                    };
-                    
-                    await appState.db.addFile(fileRecord);
-                    alert(`${employee.name} için ${file.name} dosyası başarıyla yüklendi`);
-                    
-                    // Modalı yenile
-                    await showFileUploadModal(appState.currentFileUploadIndex);
-                };
-                reader.readAsArrayBuffer(file);
-            } catch (error) {
-                console.error('Dosya yükleme hatası:', error);
-                showError('Dosya yüklenirken hata oluştu');
-            }
-        }
-
-        // Global fonksiyonlar
-        window.showEk2Modal = showEk2Modal;
-        window.showFileUploadModal = showFileUploadModal;
     </script>
 </body>
 </html>
