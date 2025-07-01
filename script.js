@@ -1,16 +1,37 @@
-// Giriş İşlemleri (Yenilenmiş)
+// Uygulama State'i
+const appState = {
+    db: new Database(),
+    currentUser: null,
+    currentWorkplace: null,
+    currentEmployees: [],
+    currentEmployeeIndex: null,
+    currentFileUploadIndex: null,
+    isEditingWorkplace: false
+};
+
+// Sayfa Yüklendiğinde
+document.addEventListener('DOMContentLoaded', async () => {
+    try {
+        await appState.db.initDB();
+        initLogin();
+        checkAuth();
+    } catch (error) {
+        console.error('Başlatma hatası:', error);
+        document.getElementById('loginError').textContent = 'Uygulama başlatılırken bir hata oluştu';
+        document.getElementById('loginError').style.display = 'block';
+    }
+});
+
+// Giriş İşlemleri
 function initLogin() {
     const loginBtn = document.getElementById('loginBtn');
-    const passwordInput = document.getElementById('password');
-    
-    if (loginBtn && passwordInput) {
+    if (loginBtn) {
         loginBtn.addEventListener('click', login);
-        passwordInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') login();
-        });
-    } else {
-        console.error('Giriş elementi bulunamadı!');
     }
+    
+    document.getElementById('password').addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') login();
+    });
 }
 
 async function login() {
@@ -19,25 +40,16 @@ async function login() {
         const password = document.getElementById('password').value.trim();
         const errorElement = document.getElementById('loginError');
 
-        // Hata mesajını temizle
         errorElement.textContent = '';
-        errorElement.style.display = 'none';
-
-        // Validasyon
+        
         if (!username || !password) {
-            throw new Error('Lütfen kullanıcı adı ve şifre giriniz');
+            throw new Error('Kullanıcı adı ve şifre gereklidir');
         }
 
-        // Demo giriş bilgileri - Gerçek uygulamada sunucu doğrulaması yapılmalı
         if (username === 'hekim' && password === 'Sifre123!') {
             localStorage.setItem('authToken', 'demo-token');
-            appState.currentUser = { 
-                username, 
-                role: 'doctor',
-                name: 'Demo Kullanıcı'
-            };
+            appState.currentUser = { username, role: 'doctor' };
             showMainView();
-            await loadWorkplaces();
         } else {
             throw new Error('Geçersiz kullanıcı adı veya şifre!');
         }
@@ -48,14 +60,14 @@ async function login() {
 }
 
 function showMainView() {
-    const loginScreen = document.getElementById('loginScreen');
-    const mainApp = document.getElementById('mainApp');
-    
-    if (loginScreen && mainApp) {
-        loginScreen.style.display = 'none';
-        mainApp.style.display = 'block';
-        document.getElementById('welcomeText').textContent = `Hoş geldiniz, ${appState.currentUser.name}`;
-    } else {
-        console.error('Ana görünüm elementleri bulunamadı!');
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('mainApp').style.display = 'block';
+    document.getElementById('welcomeText').textContent = `Hoş geldiniz, ${appState.currentUser.username}`;
+}
+
+function checkAuth() {
+    if (localStorage.getItem('authToken')) {
+        appState.currentUser = { username: 'hekim', role: 'doctor' };
+        showMainView();
     }
 }
