@@ -446,9 +446,7 @@
                     <h5 class="modal-title">EK-2 Formu</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
-                <div class="modal-body" id="ek2FormContent">
-                    <!-- EK-2 formu buraya dinamik olarak yüklenecek -->
-                </div>
+                <div class="modal-body" id="ek2FormContent"></div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
                     <button type="button" class="btn btn-primary" id="saveEk2Btn">Kaydet</button>
@@ -525,7 +523,7 @@
         class Database {
             constructor() {
                 this.dbName = 'isyeriHekimligiDB';
-                this.version = 7; // Versiyon artırıldı
+                this.version = 8; // Versiyon artırıldı
                 this.db = null;
             }
 
@@ -716,6 +714,7 @@
                 initEmployeeActions();
                 initDoctorInfo();
                 initLogout();
+                initBackButton();
             } catch (error) {
                 console.error('Başlatma hatası:', error);
                 showError('Uygulama başlatılırken bir hata oluştu: ' + error.message);
@@ -955,19 +954,24 @@
                     </td>
                 `;
                 
-                tr.querySelector('.ek2-btn').addEventListener('click', () => {
+                // Butonlara olay dinleyicileri ekle
+                const ek2Btn = tr.querySelector('.ek2-btn');
+                ek2Btn.addEventListener('click', () => {
                     showEk2Modal(index);
                 });
                 
-                tr.querySelector('.upload-btn').addEventListener('click', () => {
+                const uploadBtn = tr.querySelector('.upload-btn');
+                uploadBtn.addEventListener('click', () => {
                     showFileUploadModal(index);
                 });
                 
-                tr.querySelector('.edit-employee').addEventListener('click', () => {
+                const editBtn = tr.querySelector('.edit-employee');
+                editBtn.addEventListener('click', () => {
                     editEmployee(index);
                 });
                 
-                tr.querySelector('.delete-employee').addEventListener('click', async () => {
+                const deleteBtn = tr.querySelector('.delete-employee');
+                deleteBtn.addEventListener('click', async () => {
                     if (confirm('Bu çalışanı silmek istediğinize emin misiniz?')) {
                         try {
                             await appState.db.deleteEmployee(emp.id);
@@ -991,7 +995,10 @@
 
         function editEmployee(index) {
             const employee = appState.currentEmployees[index];
+            if (!employee) return;
+            
             appState.isEditingEmployee = true;
+            appState.currentEmployeeIndex = index;
             
             document.getElementById('employeeModalTitle').textContent = 'Çalışan Düzenle';
             document.getElementById('employeeNameInput').value = employee.name || '';
@@ -1002,9 +1009,14 @@
             employeeModal.show();
         }
 
-        // EK-2 Formu
+        // EK-2 Formu (DÜZELTİLMİŞ)
         function showEk2Modal(employeeIndex) {
             const employee = appState.currentEmployees[employeeIndex];
+            if (!employee) {
+                console.error('Çalışan bulunamadı');
+                return;
+            }
+            
             appState.currentEmployeeIndex = employeeIndex;
             
             const today = new Date();
@@ -1223,21 +1235,24 @@
                 </div>
             `;
             
-            document.getElementById('ek2ExamDate').addEventListener('change', function() {
-                const examDate = new Date(this.value);
-                const nextExamDate = new Date(examDate);
-                nextExamDate.setFullYear(nextExamDate.getFullYear() + 5);
-                document.getElementById('ek2NextExamDate').value = nextExamDate.toISOString().split('T')[0];
-            });
-            
             const ek2Modal = new bootstrap.Modal(document.getElementById('ek2Modal'));
             ek2Modal.show();
         }
 
-        // Dosya Yükleme Modalı
+        // Dosya Yükleme Modalı (DÜZELTİLMİŞ)
         async function showFileUploadModal(employeeIndex) {
-            appState.currentFileUploadIndex = employeeIndex;
+            if (employeeIndex === undefined || employeeIndex === null) {
+                console.error('Geçersiz çalışan indeksi');
+                return;
+            }
+            
             const employee = appState.currentEmployees[employeeIndex];
+            if (!employee) {
+                console.error('Çalışan bulunamadı');
+                return;
+            }
+            
+            appState.currentFileUploadIndex = employeeIndex;
             document.getElementById('fileInput').value = '';
             
             // Yüklenen dosyaları listele
@@ -1265,7 +1280,7 @@
                             if (confirm('Bu dosyayı silmek istediğinize emin misiniz?')) {
                                 try {
                                     await appState.db.deleteFile(fileId);
-                                    await showFileUploadModal(employeeIndex);
+                                    await showFileUploadModal(employeeIndex); // Modalı yenile
                                 } catch (error) {
                                     console.error('Dosya silme hatası:', error);
                                     alert('Dosya silinirken hata oluştu');
@@ -1382,6 +1397,7 @@
                     }
                     
                     appState.isEditingEmployee = false;
+                    appState.currentEmployeeIndex = null;
                     document.getElementById('employeeModalTitle').textContent = 'Yeni Çalışan';
                     document.getElementById('employeeNameInput').value = '';
                     document.getElementById('employeeTcknInput').value = '';
@@ -1412,7 +1428,7 @@
                             nextExamDate = nextDate.toISOString();
                         }
 
-                        if (appState.isEditingEmployee) {
+                        if (appState.isEditingEmployee && appState.currentEmployeeIndex !== null) {
                             const employee = appState.currentEmployees[appState.currentEmployeeIndex];
                             const updatedEmployee = {
                                 ...employee,
@@ -1469,8 +1485,6 @@
                     }
                 });
             }
-
-            initBackButton();
         }
 
         function initEmployeeActions() {
@@ -1628,7 +1642,7 @@
             }
         }
 
-        // Dosya Yükleme
+        // Dosya Yükleme (DÜZELTİLMİŞ)
         async function uploadFile() {
             const fileInput = document.getElementById('fileInput');
             if (fileInput.files.length === 0) {
@@ -1638,6 +1652,11 @@
 
             const file = fileInput.files[0];
             const employee = appState.currentEmployees[appState.currentFileUploadIndex];
+            
+            if (!employee) {
+                showError('Çalışan bulunamadı');
+                return;
+            }
             
             try {
                 const reader = new FileReader();
