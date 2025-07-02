@@ -1882,17 +1882,12 @@ async function uploadFile() {
     const file = fileInput.files[0];
     const employee = appState.currentEmployees[appState.currentFileUploadIndex];
     
-    if (!employee) {
-        showError('Çalışan bulunamadı');
-        return;
-    }
-    
     try {
         const reader = new FileReader();
         reader.onload = async (event) => {
             const fileData = event.target.result;
             const now = new Date();
-            const formattedFileTime = `${now.getFullYear()}-${(now.getMonth()+1).toString().padStart(2, '0')}-${now.getDate().toString().padStart(2, '0')} ${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}:${now.getSeconds().toString().padStart(2, '0')}`;
+            const formattedFileTime = formatDateForFileName(now);
 
             const fileRecord = {
                 id: Date.now().toString(),
@@ -1905,16 +1900,29 @@ async function uploadFile() {
             };
             
             await appState.db.addFile(fileRecord);
-            alert(`${employee.name} için ${file.name} dosyası başarıyla yüklendi`);
             
-            // Modalı yenile
+            // Modalı kapat ve yenile
+            bootstrap.Modal.getInstance(document.getElementById('fileUploadModal')).hide();
             await showFileUploadModal(appState.currentFileUploadIndex);
+            
+            alert(`${employee.name} için ${file.name} dosyası başarıyla yüklendi`);
         };
         reader.readAsArrayBuffer(file);
     } catch (error) {
         console.error('Dosya yükleme hatası:', error);
         showError('Dosya yüklenirken hata oluştu');
     }
+}
+
+function formatDateForFileName(date) {
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear();
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    const seconds = String(date.getSeconds()).padStart(2, '0');
+    
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 }
 
 // Global fonksiyonlar
