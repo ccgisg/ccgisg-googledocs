@@ -118,6 +118,12 @@ class Database {
         });
     }
 
+    document.getElementById('ek2UploadBtn').addEventListener('click', function() {
+    // Hangi çalışan için yükleme yapılacaksa, o employeeIndex'i belirle!
+    // Örneğin ilk çalışan için:
+    showFileUploadModal(0);
+});
+
     async addEmployee(employee) {
         return new Promise((resolve, reject) => {
             const transaction = this.db.transaction(['employees'], 'readwrite');
