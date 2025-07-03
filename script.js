@@ -585,7 +585,24 @@ async function showEk2Modal(employeeIndex) {
     // Sonraki muayene tarihini hesapla (5 yıl sonra)
     const nextExamDate = new Date();
     nextExamDate.setFullYear(nextExamDate.getFullYear() + 5);
-    const formattedNextExamDate = nextExamDate.toISOString().split('T')[0];
+   // Muayene tarihi input'unun id'si örneğin 'exam-date' ise:
+const muayeneTarihiInput = document.getElementById('exam-date');
+let muayeneTarihi = new Date();
+if (muayeneTarihiInput && muayeneTarihiInput.value) {
+    muayeneTarihi = new Date(muayeneTarihiInput.value);
+}
+const sonrakiMuayene = new Date(muayeneTarihi);
+sonrakiMuayene.setFullYear(sonrakiMuayene.getFullYear() + 5);
+
+// Türkçe formatta göstermek için:
+function formatDateTR(date) {
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear();
+    return `${day}.${month}.${year}`;
+}
+
+const formattedNextExamDate = formatDateTR(sonrakiMuayene);
     
     const doctorInfo = JSON.parse(localStorage.getItem('doctorInfo')) || {};
     
