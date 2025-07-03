@@ -1141,7 +1141,10 @@ async function showEk2Modal(employeeIndex) {
   ek2ListContent.innerHTML = '';
 
   // Tüm kaydedilmiş EK-2'leri çek
-  const ek2Docs = await appState.db.getEk2FormsByEmployee(employee.id); // Böyle bir fonksiyon yoksa ekleyin!
+  const ek2Docs = await appState.db.async function getEk2FormsByEmployee(employeeId) {
+  const all = await getAllEk2Forms(); // Tüm kayıtları getir.
+  return all.filter(form => form.employeeId === employeeId);
+}
 
   if (ek2Docs.length === 0) {
     ek2ListContent.innerHTML = '<div>Kayıtlı EK-2 yok.</div>';
