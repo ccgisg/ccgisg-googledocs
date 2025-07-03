@@ -1140,7 +1140,32 @@ async function showEk2Modal(employeeIndex) {
   const ek2ListContent = document.getElementById('ek2ListContent');
   ek2ListContent.innerHTML = '';
 
-  // Tüm kaydedilmiş EK-2'leri çek
+  // EK-2 kayıtlarını çek
+  const ek2Docs = await appState.db.getEk2FormsByEmployee(employee.id); // Bu fonksiyon doğru çalışmalı!
+
+  if (!ek2Docs || ek2Docs.length === 0) {
+    ek2ListContent.innerHTML = '<div>Kayıtlı EK-2 yok.</div>';
+  } else {
+    const list = document.createElement('ul');
+    list.classList.add('list-group');
+    ek2Docs.forEach(doc => {
+      const item = document.createElement('li');
+      item.className = 'list-group-item';
+      item.textContent = `${doc.date || ''} - ${doc.title || "EK-2 Döküman"}`;
+      item.style.cursor = "pointer";
+      item.addEventListener('dblclick', () => {
+        showEk2Modal(employeeIndex, doc); // doc ile aç
+        bootstrap.Modal.getInstance(document.getElementById('ek2ListModal')).hide();
+      });
+      list.appendChild(item);
+    });
+    ek2ListContent.appendChild(list);
+  }
+
+  const ek2ListModal = new bootstrap.Modal(document.getElementById('ek2ListModal'));
+  ek2ListModal.show();
+}
+window.showEk2ListModal = showEk2ListModal;// Tüm kaydedilmiş EK-2'leri çek
   const ek2Docs = await appState.db.async function getEk2FormsByEmployee(employeeId) {
   const all = await getAllEk2Forms(); // Tüm kayıtları getir.
   return all.filter(form => form.employeeId === employeeId);
