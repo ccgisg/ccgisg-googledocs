@@ -1133,7 +1133,41 @@ async function showEk2Modal(employeeIndex) {
     ek2Modal.show();
 }
 
-// Dosya Yükleme Modalı
+// async function showEk2ListModal(employeeIndex) {
+  const employee = appState.currentEmployees[employeeIndex];
+  if (!employee) return;
+
+  const ek2ListContent = document.getElementById('ek2ListContent');
+  ek2ListContent.innerHTML = '';
+
+  // Tüm kaydedilmiş EK-2'leri çek
+  const ek2Docs = await appState.db.getEk2FormsByEmployee(employee.id); // Böyle bir fonksiyon yoksa ekleyin!
+
+  if (ek2Docs.length === 0) {
+    ek2ListContent.innerHTML = '<div>Kayıtlı EK-2 yok.</div>';
+  } else {
+    const list = document.createElement('ul');
+    list.classList.add('list-group');
+    ek2Docs.forEach(doc => {
+      const item = document.createElement('li');
+      item.className = 'list-group-item';
+      item.textContent = `${doc.date} - ${doc.title || "EK-2 Döküman"}`;
+      item.style.cursor = "pointer";
+      // Çift tıklama ile aç
+      item.addEventListener('dblclick', () => {
+        showEk2Modal(employeeIndex, doc); // doc ile aç
+        bootstrap.Modal.getInstance(document.getElementById('ek2ListModal')).hide();
+      });
+      list.appendChild(item);
+    });
+    ek2ListContent.appendChild(list);
+  }
+
+  const ek2ListModal = new bootstrap.Modal(document.getElementById('ek2ListModal'));
+  ek2ListModal.show();
+}
+window.showEk2ListModal = showEk2ListModal;
+Dosya Yükleme Modalı
 async function showFileUploadModal(employeeIndex) {
     const employee = appState.currentEmployees[employeeIndex];
     if (!employee) {
