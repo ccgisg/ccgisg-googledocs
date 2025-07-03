@@ -507,10 +507,10 @@ function renderEmployees(employees) {
         `;
         
         // Butonlara olay dinleyicileri ekle
-        const ek2Btn = tr.querySelector('.ek2-btn');
-        ek2Btn.addEventListener('click', () => {
-            showEk2Modal(index);
-        });
+     const ek2Btn = tr.querySelector('.ek2-btn');
+ek2Btn.addEventListener('click', () => {
+  showEk2ListModal(index);
+});
         
         const uploadBtn = tr.querySelector('.upload-btn');
         uploadBtn.addEventListener('click', () => {
